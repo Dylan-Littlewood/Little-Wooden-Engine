@@ -5,7 +5,7 @@
 		#define LWE_API __declspec(dllexport)
 	#else
 		#define LWE_API __declspec(dllimport)
-	#endif // LWE_API Import-Export
+	#endif // LWE_API Import/Export
 #else
 	#error Little Wooden Engine Only Suports Windows!
 #endif // LWE_PLATFORM_WINDOWS

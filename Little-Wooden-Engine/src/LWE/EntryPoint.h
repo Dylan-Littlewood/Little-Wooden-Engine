@@ -2,7 +2,7 @@
 
 #ifdef LWE_PLATFORM_WINDOWS
 	
-	//Application EntryPoint Setup
+	//LWE Application EntryPoint Setup
 	extern LWE::Application* LWE::CreateApplication();
 
 	int main(int argc, char** argv)

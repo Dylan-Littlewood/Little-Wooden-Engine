@@ -14,6 +14,7 @@ namespace LWE {
 
 	void Application::Run()
 	{
+		// infinite loop
 		while (true);
 	}
 }
