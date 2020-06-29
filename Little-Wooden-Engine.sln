@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Sandbox", "Sandbox\Sandbox.vcxproj", "{7C9A239E-9038-489F-845C-285B4B64E30F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Littlewood-Engine", "Littlewood-Engine\Littlewood-Engine.vcxproj", "{1040638B-644F-40A9-B466-4160BAD6E938}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Little-Wooden-Engine", "Little-Wooden-Engine\Little-Wooden-Engine.vcxproj", "{775E776D-D2CF-4EDA-A0A9-292F9E7783D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1040638B-644F-40A9-B466-4160BAD6E938}.Debug|x64.ActiveCfg = Debug|x64
-		{1040638B-644F-40A9-B466-4160BAD6E938}.Debug|x64.Build.0 = Debug|x64
-		{1040638B-644F-40A9-B466-4160BAD6E938}.Release|x64.ActiveCfg = Release|x64
-		{1040638B-644F-40A9-B466-4160BAD6E938}.Release|x64.Build.0 = Release|x64
 		{7C9A239E-9038-489F-845C-285B4B64E30F}.Debug|x64.ActiveCfg = Debug|x64
 		{7C9A239E-9038-489F-845C-285B4B64E30F}.Debug|x64.Build.0 = Debug|x64
 		{7C9A239E-9038-489F-845C-285B4B64E30F}.Release|x64.ActiveCfg = Release|x64
 		{7C9A239E-9038-489F-845C-285B4B64E30F}.Release|x64.Build.0 = Release|x64
+		{775E776D-D2CF-4EDA-A0A9-292F9E7783D7}.Debug|x64.ActiveCfg = Debug|x64
+		{775E776D-D2CF-4EDA-A0A9-292F9E7783D7}.Debug|x64.Build.0 = Debug|x64
+		{775E776D-D2CF-4EDA-A0A9-292F9E7783D7}.Release|x64.ActiveCfg = Release|x64
+		{775E776D-D2CF-4EDA-A0A9-292F9E7783D7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
