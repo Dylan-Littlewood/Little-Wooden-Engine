@@ -6,6 +6,7 @@ namespace LWE {
 	void Print()
 	{
 		printf("Hello Welcome to Littlewood Engine");
+		getchar();
 	}
 
 }
