@@ -7,6 +7,11 @@
 
 	int main(int argc, char** argv)
 	{
+		LWE::Log::Init();
+		LWE_CORE_WARN("Initialized Core Log!");
+		LWE_INFO("Initialized Client Log!");
+		LWE_TRACE("Welcome!!!");
+
 		auto app = LWE::CreateApplication();
 		app->Run();
 		delete app;

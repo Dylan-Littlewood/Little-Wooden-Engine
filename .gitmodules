@@ -1,0 +1,3 @@
+[submodule "Little-Wooden-Engine/vendor/spdlog"]
+	path = Little-Wooden-Engine/vendor/spdlog
+	url = https://github.com/gabime/spdlog
