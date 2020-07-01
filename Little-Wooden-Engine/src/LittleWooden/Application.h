@@ -2,9 +2,9 @@
 
 #include"Core.h"
 
-namespace LWE {
+namespace LittleWooden {
 
-	class LWE_API Application
+	class LW_API Application
 	{
 	public:
 		Application();

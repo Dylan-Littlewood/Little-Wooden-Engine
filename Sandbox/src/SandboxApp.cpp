@@ -1,6 +1,6 @@
-#include <LittleWoodenEngine.h>
+#include <LittleWooden.h>
 
-class Sandbox : public LWE::Application
+class Sandbox : public LittleWooden::Application
 {
 public:
 	Sandbox()
@@ -13,7 +13,7 @@ public:
 	}
 };
 
-LWE::Application* LWE::CreateApplication()
+LittleWooden::Application* LittleWooden::CreateApplication()
 {
 	return new Sandbox();
 }

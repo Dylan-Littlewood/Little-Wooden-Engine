@@ -1,6 +1,6 @@
 #include "Application.h"
 
-namespace LWE {
+namespace LittleWooden {
 
 	Application::Application()
 	{

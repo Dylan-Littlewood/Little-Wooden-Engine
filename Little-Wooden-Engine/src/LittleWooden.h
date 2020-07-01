@@ -2,9 +2,9 @@
 
 // For use by Little Wooden Engine Applications
 
-#include "LWE/Application.h"
-#include "LWE/Log.h"
+#include "LittleWooden/Application.h"
+#include "LittleWooden/Log.h"
 
 //------EntryPoint-----------------------------
-#include"LWE/EntryPoint.h"
+#include"LittleWooden/EntryPoint.h"
 //---------------------------------------------
