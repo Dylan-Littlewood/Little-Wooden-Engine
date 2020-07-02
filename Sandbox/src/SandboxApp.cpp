@@ -1,4 +1,4 @@
-#include <LittleWooden.h>
+#include <LittleWooden.hpp>
 
 class Sandbox : public LittleWooden::Application
 {

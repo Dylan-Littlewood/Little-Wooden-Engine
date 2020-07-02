@@ -4,19 +4,34 @@
     <Filter Include="LittleWooden">
       <UniqueIdentifier>{FF969D0E-EBF9-2CB3-947F-656980C1F835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="LittleWooden\Events">
+      <UniqueIdentifier>{038EC18F-6FEF-9E9D-F85C-E54F64BDD55C}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\LittleWooden.h" />
-    <ClInclude Include="src\LittleWooden\Application.h">
+    <ClInclude Include="src\LittleWooden.hpp" />
+    <ClInclude Include="src\LittleWooden\Application.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
-    <ClInclude Include="src\LittleWooden\Core.h">
+    <ClInclude Include="src\LittleWooden\Core.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
-    <ClInclude Include="src\LittleWooden\EntryPoint.h">
+    <ClInclude Include="src\LittleWooden\EntryPoint.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
-    <ClInclude Include="src\LittleWooden\Log.h">
+    <ClInclude Include="src\LittleWooden\Events\ApplicationEvent.hpp">
+      <Filter>LittleWooden\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LittleWooden\Events\Event.hpp">
+      <Filter>LittleWooden\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LittleWooden\Events\KeyEvent.hpp">
+      <Filter>LittleWooden\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LittleWooden\Events\MouseEvent.hpp">
+      <Filter>LittleWooden\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LittleWooden\Log.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
   </ItemGroup>

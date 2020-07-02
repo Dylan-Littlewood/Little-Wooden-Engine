@@ -9,3 +9,5 @@
 #else
 	#error Little Wooden Engine Only Suports Windows!
 #endif // LW_PLATFORM_WINDOWS
+
+#define BIT(x) (1 << x)

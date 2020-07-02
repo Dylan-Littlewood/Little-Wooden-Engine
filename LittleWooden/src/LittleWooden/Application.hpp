@@ -1,6 +1,7 @@
 #pragma once
 
-#include"Core.h"
+#include "Core.hpp"
+#include "Events/Event.hpp"
 
 namespace LittleWooden {
 
