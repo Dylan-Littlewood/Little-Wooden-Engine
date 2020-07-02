@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{CFF62178-BB85-AB41-64A4-BF3C5012BCE7}</ProjectGuid>
+    <ProjectGuid>{FF969D0E-EBF9-2CB3-947F-656980C1F835}</ProjectGuid>
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Little-Wooden-Engine</RootNamespace>
+    <RootNamespace>LittleWooden</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -55,23 +55,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\Debug-windows-x86_64\Little-Wooden-Engine\</OutDir>
-    <IntDir>..\bin-int\Debug-windows-x86_64\Little-Wooden-Engine\</IntDir>
-    <TargetName>Little-Wooden-Engine</TargetName>
+    <OutDir>..\bin\Debug-windows-x86_64\LittleWooden\</OutDir>
+    <IntDir>..\bin-int\Debug-windows-x86_64\LittleWooden\</IntDir>
+    <TargetName>LittleWooden</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Release-windows-x86_64\Little-Wooden-Engine\</OutDir>
-    <IntDir>..\bin-int\Release-windows-x86_64\Little-Wooden-Engine\</IntDir>
-    <TargetName>Little-Wooden-Engine</TargetName>
+    <OutDir>..\bin\Release-windows-x86_64\LittleWooden\</OutDir>
+    <IntDir>..\bin-int\Release-windows-x86_64\LittleWooden\</IntDir>
+    <TargetName>LittleWooden</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>..\bin\Dist-windows-x86_64\Little-Wooden-Engine\</OutDir>
-    <IntDir>..\bin-int\Dist-windows-x86_64\Little-Wooden-Engine\</IntDir>
-    <TargetName>Little-Wooden-Engine</TargetName>
+    <OutDir>..\bin\Dist-windows-x86_64\LittleWooden\</OutDir>
+    <IntDir>..\bin-int\Dist-windows-x86_64\LittleWooden\</IntDir>
+    <TargetName>LittleWooden</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -88,10 +88,10 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ImportLibrary>..\bin\Debug-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Debug-windows-x86_64\LittleWooden\LittleWooden.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Debug-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Debug-windows-x86_64\LittleWooden\LittleWooden.dll\ (xcopy /Q /E /Y /I ..\bin\Debug-windows-x86_64\LittleWooden\LittleWooden.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Debug-windows-x86_64\LittleWooden\LittleWooden.dll ..\bin\Debug-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -112,10 +112,10 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\Release-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Release-windows-x86_64\LittleWooden\LittleWooden.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Release-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Release-windows-x86_64\LittleWooden\LittleWooden.dll\ (xcopy /Q /E /Y /I ..\bin\Release-windows-x86_64\LittleWooden\LittleWooden.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Release-windows-x86_64\LittleWooden\LittleWooden.dll ..\bin\Release-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -136,10 +136,10 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ImportLibrary>..\bin\Dist-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.lib</ImportLibrary>
+      <ImportLibrary>..\bin\Dist-windows-x86_64\LittleWooden\LittleWooden.lib</ImportLibrary>
     </Link>
     <PostBuildEvent>
-      <Command>IF EXIST ..\bin\Dist-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\Little-Wooden-Engine\Little-Wooden-Engine.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
+      <Command>IF EXIST ..\bin\Dist-windows-x86_64\LittleWooden\LittleWooden.dll\ (xcopy /Q /E /Y /I ..\bin\Dist-windows-x86_64\LittleWooden\LittleWooden.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul) ELSE (xcopy /Q /Y /I ..\bin\Dist-windows-x86_64\LittleWooden\LittleWooden.dll ..\bin\Dist-windows-x86_64\Sandbox &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

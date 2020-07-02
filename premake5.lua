@@ -11,8 +11,8 @@ workspace "Little-Wooden-Engine"
 
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-project "Little-Wooden-Engine"
-	location "Little-Wooden-Engine"
+project "LittleWooden"
+	location "LittleWooden"
 	kind "SharedLib"
 	language "C++"
 		
@@ -74,13 +74,13 @@ project "Sandbox"
 
 	includedirs
 	{
-		"Little-Wooden-Engine/vendor/spdlog/include",
-		"Little-Wooden-Engine/src"
+		"LittleWooden/vendor/spdlog/include",
+		"LittleWooden/src"
 	}
 
 	links
 	{
-		"Little-Wooden-Engine"
+		"LittleWooden"
 	}
 
 	filter "system:windows"
