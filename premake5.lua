@@ -11,6 +11,12 @@ workspace "Little-Wooden-Engine"
 
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
+-- Include directories relative to root folder (solution directory)
+IncludeDir = {}
+IncludeDir["GLFW"] = "LittleWooden/vendor/GLFW/include"
+
+include "LittleWooden/vendor/GLFW"
+
 project "LittleWooden"
 	location "LittleWooden"
 	kind "SharedLib"
@@ -32,7 +38,14 @@ project "LittleWooden"
 	includedirs
 	{
 		"%{prj.name}/src",
-		"%{prj.name}/vendor/spdlog/include"
+		"%{prj.name}/vendor/spdlog/include",
+		"%{IncludeDir.GLFW}"
+	}
+
+	links
+	{
+		"GLFW",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
@@ -52,7 +65,7 @@ project "LittleWooden"
 		}
 
 	filter "configurations:Debug"
-		defines "LW_DEBUG"
+		defines { "LW_DEBUG","LW_ENABLE_ASSERTS" }
 		symbols "On"
 			
 	filter "configurations:Release"
