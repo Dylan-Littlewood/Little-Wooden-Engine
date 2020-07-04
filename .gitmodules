@@ -1,6 +1,6 @@
 [submodule "LittleWooden/vendor/spdlog"]
 	path = LittleWooden/vendor/spdlog
-	url = https://github.com/gabime/spdlog
+url=https://github.com/Dylan-Littlewood/spdlog
 [submodule "LittleWooden/vendor/GLFW"]
 	path = LittleWooden/vendor/GLFW
 	url = https://github.com/Dylan-Littlewood/glfw

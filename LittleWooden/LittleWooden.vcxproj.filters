@@ -7,6 +7,12 @@
     <Filter Include="LittleWooden\Events">
       <UniqueIdentifier>{038EC18F-6FEF-9E9D-F85C-E54F64BDD55C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{2AC788B4-1694-E3BF-3FAD-D1672BD9184E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Windows">
+      <UniqueIdentifier>{64FBD71A-50F4-F66C-7926-DCF1657ED678}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\LittleWooden.hpp" />
@@ -34,6 +40,12 @@
     <ClInclude Include="src\LittleWooden\Log.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
+    <ClInclude Include="src\LittleWooden\Window.hpp">
+      <Filter>LittleWooden</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\Windows\WindowsWindow.hpp">
+      <Filter>Platform\Windows</Filter>
+    </ClInclude>
     <ClInclude Include="src\lwpch.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -42,6 +54,9 @@
     </ClCompile>
     <ClCompile Include="src\LittleWooden\Log.cpp">
       <Filter>LittleWooden</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
+      <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\lwpch.cpp" />
   </ItemGroup>

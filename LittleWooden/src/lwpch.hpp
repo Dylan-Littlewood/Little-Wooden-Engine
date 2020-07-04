@@ -13,6 +13,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+#include "LittleWooden/Log.hpp"
+
 #ifdef LW_PLATFORM_WINDOWS
 	#include <Windows.h>
 #endif // LW_PLATFORM_WINDOWS
