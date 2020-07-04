@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Core.hpp"
+#include "LittleWooden/Core.hpp"
+
 #include "spdlog/spdlog.h"
 #include "spdlog/fmt/ostr.h"
 

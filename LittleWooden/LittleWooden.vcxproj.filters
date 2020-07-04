@@ -37,6 +37,12 @@
     <ClInclude Include="src\LittleWooden\Events\MouseEvent.hpp">
       <Filter>LittleWooden\Events</Filter>
     </ClInclude>
+    <ClInclude Include="src\LittleWooden\Layer.hpp">
+      <Filter>LittleWooden</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LittleWooden\LayerStack.hpp">
+      <Filter>LittleWooden</Filter>
+    </ClInclude>
     <ClInclude Include="src\LittleWooden\Log.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
@@ -50,6 +56,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LittleWooden\Application.cpp">
+      <Filter>LittleWooden</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LittleWooden\Layer.cpp">
+      <Filter>LittleWooden</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LittleWooden\LayerStack.cpp">
       <Filter>LittleWooden</Filter>
     </ClCompile>
     <ClCompile Include="src\LittleWooden\Log.cpp">
