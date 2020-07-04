@@ -1,6 +1,6 @@
+#include "lwpch.hpp"
 #include "Application.hpp"
 
-#include "LittleWooden/Events/ApplicationEvent.hpp"
 #include "Log.hpp"
 
 namespace LittleWooden {
@@ -17,8 +17,6 @@ namespace LittleWooden {
 
 	void Application::Run()
 	{
-		WindowResizeEvent e(1280, 720);
-		LW_TRACE(e);
 		// infinite loop
 		while (true);
 	}

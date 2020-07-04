@@ -2,7 +2,6 @@
 
 #include "Event.hpp"
 
-#include <sstream>
 
 namespace LittleWooden {
 

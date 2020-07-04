@@ -19,6 +19,9 @@ project "LittleWooden"
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "lwpch.hpp"
+	pchsource "LittleWooden/src/lwpch.cpp"
+
 	files
 	{
 		"%{prj.name}/src/**.h",
