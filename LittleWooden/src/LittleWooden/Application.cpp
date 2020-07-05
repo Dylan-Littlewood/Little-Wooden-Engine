@@ -1,10 +1,9 @@
 #include "lwpch.hpp"
 #include "Application.hpp"
 
+#include <glad/glad.h>
 
 namespace LittleWooden {
-
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
 
 	Application* Application::s_Instance = nullptr;
 
@@ -14,7 +13,7 @@ namespace LittleWooden {
 		s_Instance = this;
 
 		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window->SetEventCallback(LW_BIND_EVENT_FN(Application::OnEvent));
 	}
 	
 	Application::~Application()
@@ -37,7 +36,7 @@ namespace LittleWooden {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(OnWindowClose));
+		dispatcher.Dispatch<WindowCloseEvent>(LW_BIND_EVENT_FN(Application::OnWindowClose));
 
 		LW_CORE_TRACE("{0}", e);
 
@@ -54,6 +53,8 @@ namespace LittleWooden {
 		// infinite loop
 		while (m_Running)
 		{
+			glClearColor(0.5f, 0.5f, 0.5f, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
