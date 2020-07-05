@@ -14,8 +14,10 @@ workspace "Little-Wooden-Engine"
 -- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "LittleWooden/vendor/GLFW/include"
+IncludeDir["Glad"] = "LittleWooden/vendor/Glad/include"
 
 include "LittleWooden/vendor/GLFW"
+include "LittleWooden/vendor/Glad"
 
 project "LittleWooden"
 	location "LittleWooden"
@@ -39,12 +41,14 @@ project "LittleWooden"
 	{
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
-		"%{IncludeDir.GLFW}"
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}"
 	}
 
 	links
 	{
 		"GLFW",
+		"Glad",
 		"opengl32.lib"
 	}
 
@@ -56,7 +60,8 @@ project "LittleWooden"
 		defines
 		{
 			"LW_PLATFORM_WINDOWS",
-			"LW_BUILD_DLL"
+			"LW_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
 		}
 
 		postbuildcommands

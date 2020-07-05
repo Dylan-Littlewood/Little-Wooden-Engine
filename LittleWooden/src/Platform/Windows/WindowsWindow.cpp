@@ -1,10 +1,11 @@
 #include "lwpch.hpp"
 #include "WindowsWindow.hpp"
 
-#include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/KeyEvent.hpp"
 #include "LittleWooden/Events/MouseEvent.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
+
+#include <glad/glad.h>
 
 namespace LittleWooden {
 
@@ -45,12 +46,13 @@ namespace LittleWooden {
 			LW_CORE_ASSERT(success, "Could not initialize GLFW!");
 			//GLFW Error Callback
 			glfwSetErrorCallback(GLFWErrorCallback);
-
 			s_GLFWInitialized = true;
 		}
 
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		glfwMakeContextCurrent(m_Window);
+		int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+		LW_CORE_ASSERT(status, "Failed to initialize Glad!");
 		glfwSetWindowUserPointer(m_Window, &m_Data);
 		SetVSync(true);
 

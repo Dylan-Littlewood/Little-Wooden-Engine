@@ -1,8 +1,6 @@
 #include "lwpch.hpp"
 #include "Application.hpp"
 
-// remove later
-#include <GLFW/glfw3.h>
 
 namespace LittleWooden {
 
@@ -49,8 +47,6 @@ namespace LittleWooden {
 		// infinite loop
 		while (m_Running)
 		{
-			glClearColor(0, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
