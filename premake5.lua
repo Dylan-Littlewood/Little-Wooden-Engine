@@ -15,9 +15,11 @@ workspace "Little-Wooden-Engine"
 IncludeDir = {}
 IncludeDir["GLFW"] = "LittleWooden/vendor/GLFW/include"
 IncludeDir["Glad"] = "LittleWooden/vendor/Glad/include"
+IncludeDir["ImGui"] = "LittleWooden/vendor/imgui"
 
 include "LittleWooden/vendor/GLFW"
 include "LittleWooden/vendor/Glad"
+include "LittleWooden/vendor/imgui"
 
 project "LittleWooden"
 	location "LittleWooden"
@@ -42,13 +44,15 @@ project "LittleWooden"
 		"%{prj.name}/src",
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}"
 	}
 
 	links
 	{
 		"GLFW",
 		"Glad",
+		"ImGui",
 		"opengl32.lib"
 	}
 

@@ -4,3 +4,6 @@ url=https://github.com/Dylan-Littlewood/spdlog
 [submodule "LittleWooden/vendor/GLFW"]
 	path = LittleWooden/vendor/GLFW
 	url = https://github.com/Dylan-Littlewood/glfw
+[submodule "LittleWooden/vendor/imgui"]
+	path = LittleWooden/vendor/imgui
+	url = https://github.com/Dylan-Littlewood/imgui
