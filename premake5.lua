@@ -16,6 +16,7 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "LittleWooden/vendor/GLFW/include"
 IncludeDir["Glad"] = "LittleWooden/vendor/Glad/include"
 IncludeDir["ImGui"] = "LittleWooden/vendor/imgui"
+IncludeDir["glm"] = "LittleWooden/vendor/glm"
 
 group "Dependencies"
 	include "LittleWooden/vendor/GLFW"
@@ -39,7 +40,9 @@ project "LittleWooden"
 	{
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.hpp",
-		"%{prj.name}/src/**.cpp"
+		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/glm/glm/**.hpp",
+		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
 
 	includedirs
@@ -48,7 +51,8 @@ project "LittleWooden"
 		"%{prj.name}/vendor/spdlog/include",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}"
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.glm}"
 	}
 
 	links
@@ -108,7 +112,9 @@ project "Sandbox"
 	includedirs
 	{
 		"LittleWooden/vendor/spdlog/include",
-		"LittleWooden/src"
+		"LittleWooden/src",
+		"LittleWooden/vendor",
+		"%{IncludeDir.glm}"
 	}
 
 	links

@@ -7,6 +7,8 @@
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
 
+#include "ImGui/ImGuiLayer.hpp"
+
 namespace LittleWooden {
 
 	class LW_API Application
@@ -28,6 +30,7 @@ namespace LittleWooden {
 		bool OnWindowClose(WindowCloseEvent& e);
 
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 

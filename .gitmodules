@@ -7,3 +7,6 @@ url=https://github.com/Dylan-Littlewood/spdlog
 [submodule "LittleWooden/vendor/imgui"]
 	path = LittleWooden/vendor/imgui
 	url = https://github.com/Dylan-Littlewood/imgui
+[submodule "LittleWooden/vendor/glm"]
+	path = LittleWooden/vendor/glm
+	url = https://github.com/g-truc/glm

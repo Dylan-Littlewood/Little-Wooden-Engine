@@ -1,5 +1,7 @@
 #include <LittleWooden.hpp>
 
+#include <imgui/imgui.h>
+
 class ExampleLayer : public LittleWooden::Layer
 {
 public:
@@ -13,6 +15,13 @@ public:
 		if (LittleWooden::Input::IsKeyPressed(LW_KEY_ENTER))
 			LW_INFO(" Poll: The Enter Key Was Pressed!");
 	}
+
+//	void OnImGuiRender() override
+//	{
+//		ImGui::Begin("Test");
+//		ImGui::Text("Hello World!");
+//		ImGui::End();
+//	}
 
 	void OnEvent(LittleWooden::Event& event) override
 	{
@@ -33,7 +42,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new LittleWooden::ImGuiLayer());
 	}
 	~Sandbox()
 	{
