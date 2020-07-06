@@ -11,7 +11,7 @@
 
 namespace LittleWooden {
 
-	class LW_API Application
+	class Application
 	{
 	public:
 		Application();

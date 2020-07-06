@@ -7,7 +7,7 @@
 
 namespace LittleWooden {
 
-	class LW_API LayerStack
+	class LayerStack
 	{
 	public:
 		LayerStack();

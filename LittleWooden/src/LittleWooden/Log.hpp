@@ -7,7 +7,7 @@
 
 namespace LittleWooden {
 
-	class LW_API Log
+	class Log
 	{
 	public:
 		static void Init();

@@ -26,10 +26,11 @@ group ""
 
 project "LittleWooden"
 	location "LittleWooden"
-	kind "SharedLib"
+	kind "StaticLib"
 	language "C++"
-	staticruntime "off"
-		
+	cppdialect "C++17"
+	staticruntime "on"
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -43,6 +44,11 @@ project "LittleWooden"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	includedirs
@@ -64,7 +70,6 @@ project "LittleWooden"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -74,32 +79,28 @@ project "LittleWooden"
 			"GLFW_INCLUDE_NONE"
 		}
 
-		postbuildcommands
-		{
-			"{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
-		}
-
 	filter "configurations:Debug"
-		defines { "LW_DEBUG","LW_ENABLE_ASSERTS" }
-		symbols "On"
+		defines "LW_DEBUG"
 		runtime "Debug"
-			
+		symbols "on"
+
 	filter "configurations:Release"
 		defines "LW_RELEASE"
-		optimize "On"
 		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "LW_DIST"
-		optimize "On"
 		runtime "Release"
+		optimize "on"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
-	staticruntime "off"
-		
+	cppdialect "C++17"
+	staticruntime "on"
+
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
@@ -123,7 +124,6 @@ project "Sandbox"
 	}
 
 	filter "system:windows"
-		cppdialect "C++17"
 		systemversion "latest"
 
 		defines
@@ -133,17 +133,16 @@ project "Sandbox"
 
 
 	filter "configurations:Debug"
-		defines { "LW_DEBUG","LW_ENABLE_ASSERTS" }
-		symbols "On"
+		defines "LW_DEBUG"
 		runtime "Debug"
-			
+		symbols "on"
+
 	filter "configurations:Release"
 		defines "LW_RELEASE"
-		optimize "On"
 		runtime "Release"
+		optimize "on"
 
 	filter "configurations:Dist"
 		defines "LW_DIST"
-		optimize "On"
 		runtime "Release"
-		
+		optimize "on"

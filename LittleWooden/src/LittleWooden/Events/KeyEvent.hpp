@@ -4,7 +4,7 @@
 
 namespace LittleWooden {
 
-	class LW_API KeyEvent : public Event
+	class KeyEvent : public Event
 	{
 	public:
 		inline int GetKeyCode() const { return m_KeyCode; }
@@ -17,7 +17,7 @@ namespace LittleWooden {
 		int m_KeyCode;
 	};
 
-	class LW_API KeyPressedEvent : public KeyEvent
+	class KeyPressedEvent : public KeyEvent
 	{
 	public:
 		KeyPressedEvent(int keycode, int repeatCount)
@@ -37,7 +37,7 @@ namespace LittleWooden {
 		int m_RepeatCount;
 	};
 
-	class LW_API KeyReleasedEvent : public KeyEvent
+	class KeyReleasedEvent : public KeyEvent
 	{
 	public:
 		KeyReleasedEvent(int keycode)
@@ -53,7 +53,7 @@ namespace LittleWooden {
 		EVENT_CLASS_TYPE(KeyReleased)
 	};
 
-	class LW_API KeyTypedEvent : public KeyEvent
+	class KeyTypedEvent : public KeyEvent
 	{
 	public:
 		KeyTypedEvent(int keycode)
