@@ -1,6 +1,5 @@
 #pragma once
-
-#include "LittleWooden/Events/Event.hpp"
+#include "Event.hpp"
 
 
 namespace LittleWooden {

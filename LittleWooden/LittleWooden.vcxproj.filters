@@ -58,13 +58,15 @@
     <ClInclude Include="src\LittleWooden\Window.hpp">
       <Filter>LittleWooden</Filter>
     </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
+      <Filter>Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsWindow.hpp">
       <Filter>Platform\Windows</Filter>
     </ClInclude>
     <ClInclude Include="src\lwpch.hpp" />
-    <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h">
-      <Filter>Platform\OpenGL</Filter>
-    </ClInclude>
+    <ClInclude Include="src\LittleWooden\Input.hpp" />
+    <ClInclude Include="src\Platform\Windows\WindowsInput.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LittleWooden\Application.cpp">
@@ -82,12 +84,13 @@
     <ClCompile Include="src\LittleWooden\Log.cpp">
       <Filter>LittleWooden</Filter>
     </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
+      <Filter>Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp">
       <Filter>Platform\Windows</Filter>
     </ClCompile>
     <ClCompile Include="src\lwpch.cpp" />
-    <ClCompile Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.cpp">
-      <Filter>Platform\OpenGL</Filter>
-    </ClCompile>
+    <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
   </ItemGroup>
 </Project>

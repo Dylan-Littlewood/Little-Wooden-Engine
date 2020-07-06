@@ -17,14 +17,17 @@ IncludeDir["GLFW"] = "LittleWooden/vendor/GLFW/include"
 IncludeDir["Glad"] = "LittleWooden/vendor/Glad/include"
 IncludeDir["ImGui"] = "LittleWooden/vendor/imgui"
 
-include "LittleWooden/vendor/GLFW"
-include "LittleWooden/vendor/Glad"
-include "LittleWooden/vendor/imgui"
+group "Dependencies"
+	include "LittleWooden/vendor/GLFW"
+	include "LittleWooden/vendor/Glad"
+	include "LittleWooden/vendor/imgui"
+group ""
 
 project "LittleWooden"
 	location "LittleWooden"
 	kind "SharedLib"
 	language "C++"
+	staticruntime "off"
 		
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -58,7 +61,6 @@ project "LittleWooden"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -70,28 +72,29 @@ project "LittleWooden"
 
 		postbuildcommands
 		{
-			"{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox"
+			"{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\""
 		}
 
 	filter "configurations:Debug"
 		defines { "LW_DEBUG","LW_ENABLE_ASSERTS" }
-		buildoptions "/MDd"
 		symbols "On"
+		runtime "Debug"
 			
 	filter "configurations:Release"
 		defines "LW_RELEASE"
-		buildoptions "/MD"
 		optimize "On"
+		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "LW_DIST"
-		buildoptions "/MD"
 		optimize "On"
+		runtime "Release"
 
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
+	staticruntime "off"
 		
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -115,7 +118,6 @@ project "Sandbox"
 
 	filter "system:windows"
 		cppdialect "C++17"
-		staticruntime "On"
 		systemversion "latest"
 
 		defines
@@ -126,16 +128,16 @@ project "Sandbox"
 
 	filter "configurations:Debug"
 		defines { "LW_DEBUG","LW_ENABLE_ASSERTS" }
-		buildoptions "/MDd"
 		symbols "On"
+		runtime "Debug"
 			
 	filter "configurations:Release"
 		defines "LW_RELEASE"
-		buildoptions "/MD"
 		optimize "On"
+		runtime "Release"
 
 	filter "configurations:Dist"
 		defines "LW_DIST"
-		buildoptions "/MD"
 		optimize "On"
+		runtime "Release"
 		

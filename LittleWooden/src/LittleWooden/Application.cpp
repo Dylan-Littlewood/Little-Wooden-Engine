@@ -1,6 +1,8 @@
 #include "lwpch.hpp"
 #include "Application.hpp"
 
+#include "LittleWooden/Input.hpp"
+
 #include <glad/glad.h>
 
 namespace LittleWooden {
@@ -58,6 +60,9 @@ namespace LittleWooden {
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			auto [x, y] = Input::GetMousePosition();
+			LW_CORE_TRACE("X:{0}, Y:{1}", x, y);
 
 			m_Window->OnUpdate();
 		}
