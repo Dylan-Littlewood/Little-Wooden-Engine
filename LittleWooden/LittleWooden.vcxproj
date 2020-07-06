@@ -159,9 +159,11 @@
     <ClInclude Include="src\LittleWooden\Events\MouseEvent.hpp" />
     <ClInclude Include="src\LittleWooden\ImGui\ImGuiLayer.hpp" />
     <ClInclude Include="src\LittleWooden\Input.hpp" />
+    <ClInclude Include="src\LittleWooden\KeyCodes.hpp" />
     <ClInclude Include="src\LittleWooden\Layer.hpp" />
     <ClInclude Include="src\LittleWooden\LayerStack.hpp" />
     <ClInclude Include="src\LittleWooden\Log.hpp" />
+    <ClInclude Include="src\LittleWooden\MouseButtonCodes.hpp" />
     <ClInclude Include="src\LittleWooden\Window.hpp" />
     <ClInclude Include="src\Platform\OpenGL\ImGuiOpenGLRenderer.h" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.hpp" />

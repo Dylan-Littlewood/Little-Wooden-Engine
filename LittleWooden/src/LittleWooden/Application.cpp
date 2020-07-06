@@ -40,7 +40,7 @@ namespace LittleWooden {
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(LW_BIND_EVENT_FN(Application::OnWindowClose));
 
-		LW_CORE_TRACE("{0}", e);
+		//LW_CORE_TRACE("{0}", e);
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -61,8 +61,8 @@ namespace LittleWooden {
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 
-			auto [x, y] = Input::GetMousePosition();
-			LW_CORE_TRACE("X:{0}, Y:{1}", x, y);
+			//auto [x, y] = Input::GetMousePosition();
+			//LW_CORE_TRACE("X:{0}, Y:{1}", x, y);
 
 			m_Window->OnUpdate();
 		}

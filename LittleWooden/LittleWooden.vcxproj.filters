@@ -67,6 +67,8 @@
     <ClInclude Include="src\lwpch.hpp" />
     <ClInclude Include="src\LittleWooden\Input.hpp" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.hpp" />
+    <ClInclude Include="src\LittleWooden\KeyCodes.hpp" />
+    <ClInclude Include="src\LittleWooden\MouseButtonCodes.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\LittleWooden\Application.cpp">

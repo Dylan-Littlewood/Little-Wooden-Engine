@@ -8,6 +8,12 @@
 
 #include "LittleWooden/ImGui/ImGuiLayer.hpp"
 
+//------Input----------------------------------
+#include "LittleWooden/Input.hpp"
+#include "LittleWooden/KeyCodes.hpp"
+#include "LittleWooden/MouseButtonCodes.hpp"
+//---------------------------------------------
+
 //------EntryPoint-----------------------------
 #include"LittleWooden/EntryPoint.hpp"
 //---------------------------------------------
