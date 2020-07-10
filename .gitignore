@@ -1,7 +1,13 @@
-#Directories
-.vs/
-bin/
+# Binaries
+**/bin/
+!vendor/bin/premake/
 bin-int/
 
-#Files
-*.user
+# LittleWooden files
+*.log
+
+# Visual Studio folder
+.vs/
+
+# ImGui ini File
+Sandbox/imgui.ini

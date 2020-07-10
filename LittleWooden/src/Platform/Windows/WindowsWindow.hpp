@@ -1,6 +1,7 @@
 #pragma once
 
 #include "LittleWooden/Window.hpp"
+#include "LittleWooden/Renderer/GraphicsContext.hpp"
 
 #include <GLFW/glfw3.h>
 
@@ -29,6 +30,7 @@ namespace LittleWooden {
 		virtual void Shutdown();
 	private:
 		GLFWwindow* m_Window;
+		GraphicsContext* m_Context;
 
 		struct WindowData
 		{

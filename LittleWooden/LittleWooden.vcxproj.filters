@@ -13,8 +13,14 @@
     <Filter Include="src\LittleWooden\ImGui">
       <UniqueIdentifier>{20731887-0C6D-41D9-F5D9-D7E9E172A745}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\LittleWooden\Renderer">
+      <UniqueIdentifier>{DC057DCF-48C8-B059-9178-3FE6FD798937}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src\Platform">
       <UniqueIdentifier>{21CA02E5-0D2D-9289-B6B2-CA3FA2F45D0C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Platform\OpenGL">
+      <UniqueIdentifier>{35A49437-A105-7245-2A73-B8F796D3A804}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Platform\Windows">
       <UniqueIdentifier>{5B054582-4794-CE4B-F0B2-E246DC20DFF1}</UniqueIdentifier>
@@ -87,8 +93,14 @@
     <ClInclude Include="src\LittleWooden\MouseButtonCodes.hpp">
       <Filter>src\LittleWooden</Filter>
     </ClInclude>
+    <ClInclude Include="src\LittleWooden\Renderer\GraphicsContext.hpp">
+      <Filter>src\LittleWooden\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\LittleWooden\Window.hpp">
       <Filter>src\LittleWooden</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Platform\OpenGL\OpenGLContext.hpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\Platform\Windows\WindowsInput.hpp">
       <Filter>src\Platform\Windows</Filter>
@@ -1342,6 +1354,9 @@
     </ClCompile>
     <ClCompile Include="src\LittleWooden\Log.cpp">
       <Filter>src\LittleWooden</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp">
       <Filter>src\Platform\Windows</Filter>
