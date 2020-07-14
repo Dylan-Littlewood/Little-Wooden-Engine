@@ -16,12 +16,12 @@ public:
 			LW_INFO(" Poll: The Enter Key Was Pressed!");
 	}
 
-//	void OnImGuiRender() override
-//	{
-//		ImGui::Begin("Test");
-//		ImGui::Text("Hello World!");
-//		ImGui::End();
-//	}
+	void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Hello World!");
+		ImGui::End();
+	}
 
 	void OnEvent(LittleWooden::Event& event) override
 	{

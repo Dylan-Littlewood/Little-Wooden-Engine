@@ -9,6 +9,9 @@
 
 #include "ImGui/ImGuiLayer.hpp"
 
+
+#include "LittleWooden/Renderer/Shader.hpp"
+
 namespace LittleWooden {
 
 	class Application
@@ -22,7 +25,7 @@ namespace LittleWooden {
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);
-		void PushOverlay(Layer* layer);
+		void PushOverlay(Layer* overlay);
 
 		inline static Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
@@ -35,6 +38,7 @@ namespace LittleWooden {
 		LayerStack m_LayerStack;
 
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		std::unique_ptr<Shader> m_Shader;
 
 	private:
 		static Application* s_Instance;
