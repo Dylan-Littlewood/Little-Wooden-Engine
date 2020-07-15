@@ -155,9 +155,12 @@
     <ClInclude Include="src\LittleWooden\LayerStack.hpp" />
     <ClInclude Include="src\LittleWooden\Log.hpp" />
     <ClInclude Include="src\LittleWooden\MouseButtonCodes.hpp" />
+    <ClInclude Include="src\LittleWooden\Renderer\Buffer.hpp" />
     <ClInclude Include="src\LittleWooden\Renderer\GraphicsContext.hpp" />
+    <ClInclude Include="src\LittleWooden\Renderer\Renderer.hpp" />
     <ClInclude Include="src\LittleWooden\Renderer\Shader.hpp" />
     <ClInclude Include="src\LittleWooden\Window.hpp" />
+    <ClInclude Include="src\Platform\OpenGL\OpenGLBuffer.hpp" />
     <ClInclude Include="src\Platform\OpenGL\OpenGLContext.hpp" />
     <ClInclude Include="src\Platform\Windows\WindowsInput.hpp" />
     <ClInclude Include="src\Platform\Windows\WindowsWindow.hpp" />
@@ -578,7 +581,10 @@
     <ClCompile Include="src\LittleWooden\Layer.cpp" />
     <ClCompile Include="src\LittleWooden\LayerStack.cpp" />
     <ClCompile Include="src\LittleWooden\Log.cpp" />
+    <ClCompile Include="src\LittleWooden\Renderer\Buffer.cpp" />
+    <ClCompile Include="src\LittleWooden\Renderer\Renderer.cpp" />
     <ClCompile Include="src\LittleWooden\Renderer\Shader.cpp" />
+    <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp" />
     <ClCompile Include="src\Platform\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\Platform\Windows\WindowsWindow.cpp" />
