@@ -9,9 +9,4 @@ namespace LittleWooden {
 
 	}
 
-	Layer::~Layer()
-	{
-
-	}
-
 }

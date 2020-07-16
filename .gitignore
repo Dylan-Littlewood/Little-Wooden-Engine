@@ -9,5 +9,9 @@ bin-int/
 # Visual Studio folder
 .vs/
 
-# ImGui ini File
-Sandbox/imgui.ini
+# Visual Studio files and folder
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user

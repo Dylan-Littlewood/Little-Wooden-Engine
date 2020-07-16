@@ -72,11 +72,6 @@ namespace LittleWooden {
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
 
 	}
-	
-	Application::~Application()
-	{
-
-	}
 
 	void Application::PushLayer(Layer* layer)
 	{
