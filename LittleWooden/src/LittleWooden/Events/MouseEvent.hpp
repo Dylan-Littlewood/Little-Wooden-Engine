@@ -90,7 +90,7 @@ namespace LittleWooden {
 			return ss.str();
 		}
 
-		EVENT_CLASS_TYPE(MousebuttonReleased)
+		EVENT_CLASS_TYPE(MouseButtonReleased)
 	};
 
 }

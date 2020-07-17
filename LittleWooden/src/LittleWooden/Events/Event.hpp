@@ -17,10 +17,10 @@ namespace LittleWooden {
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased, KeyTyped,
-		MouseButtonPressed, MousebuttonReleased, MouseMoved, MouseScrolled
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
-	enum EventCategory 
+	enum EventCategory
 	{
 		None = 0,
 		EventCategoryApplication	= BIT(0),
