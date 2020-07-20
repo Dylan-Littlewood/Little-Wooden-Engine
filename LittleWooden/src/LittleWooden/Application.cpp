@@ -42,47 +42,51 @@ namespace LittleWooden {
 		PushOverlay(m_ImGuiLayer);
 
 		// Draw a triangle to the screen
-
-		glGenVertexArrays(1, &m_VertexArray);
-		glBindVertexArray(m_VertexArray);
-
+		m_VertexArray.reset(VertexArray::Create());
 
 		float vertices[3 * 7] = {
 			// triangle points		// Colors of points
-			-0.5f, -0.5f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
-			 0.5f, -0.5f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,  0.5f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
+			-0.25f, -0.25f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
+			 0.25f, -0.25f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,   0.4f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		m_VertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		std::shared_ptr<VertexBuffer> vertexBuffer;
+		vertexBuffer.reset(VertexBuffer::Create(vertices, sizeof(vertices)));
+		BufferLayout layout = {
+			{ ShaderDataType::Float3, "a_Position" },
+			{ ShaderDataType::Float4, "a_Color" }
+		};
 
-		{
-			BufferLayout layout = {
-				{ ShaderDataType::Float3, "a_Position" },
-				{ ShaderDataType::Float4, "a_Color" }
-			};
-
-			m_VertexBuffer->SetLayout(layout);
-		}
-		
-		uint32_t index = 0;
-		const auto& layout = m_VertexBuffer->GetLayout();
-		for (const auto& element : layout)
-		{
-			glEnableVertexAttribArray(index);
-			glVertexAttribPointer(index,
-				element.GetComponentCount(),
-				ShaderDataTypeToOpenGLBaseType(element.Type),
-				element.Normalized ? GL_TRUE : GL_FALSE,
-				layout.GetStride(),
-				(const void*)element.Offset);
-			index++;
-		}
-
-		
+		vertexBuffer->SetLayout(layout);
+		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2 };
-		m_IndexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		std::shared_ptr<IndexBuffer> indexBuffer;
+		indexBuffer.reset(IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		m_VertexArray->SetIndexBuffer(indexBuffer);
+
+		m_HexVertexArray.reset(VertexArray::Create());
+
+		float hexVertices[3 * 6] = {
+			// Hex points
+			 0.4f,  0.0f, 0.0f,
+			 0.2f,  0.6f, 0.0f,
+			-0.2f,  0.6f, 0.0f,
+			-0.4f,  0.0f, 0.0f,
+			-0.2f, -0.6f, 0.0f,
+			 0.2f, -0.6f, 0.0f
+		};
+		std::shared_ptr<VertexBuffer> hexVB;
+		hexVB.reset(VertexBuffer::Create(hexVertices, sizeof(hexVertices)));
+
+		hexVB->SetLayout({ { ShaderDataType::Float3, "a_Position" } });
+		m_HexVertexArray->AddVertexBuffer(hexVB);
+
+		unsigned int hexIndices[12] = { 0, 1, 5, 1, 2, 4, 2, 3, 4, 4, 5, 1 };
+		std::shared_ptr<IndexBuffer> hexIB;
+		hexIB.reset(IndexBuffer::Create(hexIndices, sizeof(hexIndices) / sizeof(uint32_t)));
+		m_HexVertexArray->SetIndexBuffer(hexIB);
 		
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -101,7 +105,7 @@ namespace LittleWooden {
 			}
 		)";
 
-		
+
 		std::string fragmentSrc = R"(
 			#version 330 core
 
@@ -116,9 +120,37 @@ namespace LittleWooden {
 				color = v_Color;
 			}
 		)";
-		
+		std::string tealShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+
+			out vec3 v_Position;
+
+			void main()
+			{
+				v_Position = a_Position;
+				gl_Position = vec4(a_Position, 1.0);
+			}
+		)";
+
+
+		std::string tealShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec3 v_Position;
+
+			void main()
+			{
+				color = vec4(0.2, 0.5, 0.5, 1.0);
+			}
+		)";
+
 
 		m_Shader.reset(new Shader(vertexSrc, fragmentSrc));
+		m_BlueShader.reset(new Shader(tealShaderVertexSrc, tealShaderFragmentSrc));
 
 	}
 
@@ -155,10 +187,15 @@ namespace LittleWooden {
 			glClearColor(0.2f, 0.2f, 0.2f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			// Draw the Hex
+			m_BlueShader->Bind();
+			m_HexVertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_HexVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+
 			// Draw the triangle
 			m_Shader->Bind();
-			glBindVertexArray(m_VertexArray);
-			glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+			m_VertexArray->Bind();
+			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
