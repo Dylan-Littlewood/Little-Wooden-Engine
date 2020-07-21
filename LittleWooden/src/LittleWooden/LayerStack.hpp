@@ -1,7 +1,7 @@
 #pragma once
 
 #include "LittleWooden/Core.hpp"
-#include "Littlewooden/Layer.hpp"
+#include "LittleWooden/Layer.hpp"
 
 #include <vector>
 
@@ -10,7 +10,7 @@ namespace LittleWooden {
 	class LayerStack
 	{
 	public:
-		LayerStack();
+		LayerStack() = default;
 		~LayerStack();
 
 		void PushLayer(Layer* layer);

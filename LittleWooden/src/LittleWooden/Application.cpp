@@ -3,32 +3,11 @@
 
 #include "LittleWooden/Input.hpp"
 
-#include <glad/glad.h>
+#include "Renderer/Renderer.hpp"
 
 namespace LittleWooden {
 
 	Application* Application::s_Instance = nullptr;
-
-	static GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type)
-	{
-		switch (type)
-		{
-			case ShaderDataType::Float:
-			case ShaderDataType::Float2:
-			case ShaderDataType::Float3:
-			case ShaderDataType::Float4:
-			case ShaderDataType::Mat3:
-			case ShaderDataType::Mat4:		return GL_FLOAT;
-			case ShaderDataType::Int:
-			case ShaderDataType::Int2:
-			case ShaderDataType::Int3:
-			case ShaderDataType::Int4:		return GL_INT;
-			case ShaderDataType::Bool:		return GL_BOOL;
-			case ShaderDataType::None:		LW_CORE_ASSERT(false, "ShaderDataType::None Specified!"); return 0;
-		}
-		LW_CORE_ASSERT(false, "Unknown ShaderDataType!");
-		return 0;
-	}
 
 	Application::Application()
 	{
@@ -184,18 +163,18 @@ namespace LittleWooden {
 		// infinite loop
 		while (m_Running)
 		{
-			glClearColor(0.2f, 0.2f, 0.2f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
+			RenderCommand::Clear();
 
-			// Draw the Hex
+			Renderer::BeginScene();
+
 			m_BlueShader->Bind();
-			m_HexVertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_HexVertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-
-			// Draw the triangle
+			Renderer::Submit(m_HexVertexArray);
+			
 			m_Shader->Bind();
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			Renderer::Submit(m_VertexArray);
+			
+			Renderer::EndScene();
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
