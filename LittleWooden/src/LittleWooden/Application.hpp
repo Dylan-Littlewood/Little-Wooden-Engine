@@ -2,17 +2,19 @@
 
 #include "LittleWooden/Core.hpp"
 
+#include "ImGui/ImGuiLayer.hpp"
+
 #include "LittleWooden/Window.hpp"
 #include "LittleWooden/LayerStack.hpp"
+
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
 
-#include "ImGui/ImGuiLayer.hpp"
-
-
 #include "LittleWooden/Renderer/Shader.hpp"
 #include "LittleWooden/Renderer/Buffer.hpp"
-#include "Renderer/VertexArray.hpp"
+#include "LittleWooden/Renderer/VertexArray.hpp"
+#include "LittleWooden/Renderer/OrthographicCamera.hpp"
+
 
 namespace LittleWooden {
 
@@ -45,6 +47,7 @@ namespace LittleWooden {
 		std::shared_ptr<VertexArray> m_VertexArray;
 		std::shared_ptr<VertexArray> m_HexVertexArray;
 
+		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};

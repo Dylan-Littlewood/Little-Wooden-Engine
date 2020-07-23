@@ -5,11 +5,13 @@
 
 #include "Renderer/Renderer.hpp"
 
+
 namespace LittleWooden {
 
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
+		: m_Camera(-1.6f, 1.6f, -0.9f, 0.9f)
 	{
 		LW_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
@@ -25,9 +27,9 @@ namespace LittleWooden {
 
 		float vertices[3 * 7] = {
 			// triangle points		// Colors of points
-			-0.25f, -0.25f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
-			 0.25f, -0.25f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,
-			 0.0f,   0.4f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
+			-0.2f, -0.2f, 0.0f,		0.8f, 0.2f, 0.8f, 1.0f,
+			 0.2f, -0.2f, 0.0f,		0.2f, 0.3f, 0.8f, 1.0f,
+			 0.0f,  0.2f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 		};
 
 		std::shared_ptr<VertexBuffer> vertexBuffer;
@@ -50,11 +52,11 @@ namespace LittleWooden {
 		float hexVertices[3 * 6] = {
 			// Hex points
 			 0.4f,  0.0f, 0.0f,
-			 0.2f,  0.6f, 0.0f,
-			-0.2f,  0.6f, 0.0f,
+			 0.2f,  0.35f, 0.0f,
+			-0.2f,  0.35f, 0.0f,
 			-0.4f,  0.0f, 0.0f,
-			-0.2f, -0.6f, 0.0f,
-			 0.2f, -0.6f, 0.0f
+			-0.2f, -0.35f, 0.0f,
+			 0.2f, -0.35f, 0.0f
 		};
 		std::shared_ptr<VertexBuffer> hexVB;
 		hexVB.reset(VertexBuffer::Create(hexVertices, sizeof(hexVertices)));
@@ -73,6 +75,8 @@ namespace LittleWooden {
 			layout(location = 0) in vec3 a_Position;
 			layout(location = 1) in vec4 a_Color;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 			out vec4 v_Color;
 
@@ -80,7 +84,7 @@ namespace LittleWooden {
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -104,12 +108,14 @@ namespace LittleWooden {
 
 			layout(location = 0) in vec3 a_Position;
 
+			uniform mat4 u_ViewProjection;
+
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -160,19 +166,22 @@ namespace LittleWooden {
 	
 	void Application::Run()
 	{
+		// rotating camera
+		float t_Rot = 0.0f;
+
 		// infinite loop
 		while (m_Running)
 		{
 			RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
 			RenderCommand::Clear();
 
-			Renderer::BeginScene();
+			// rotating camera
+			m_Camera.SetRotation(t_Rot);
 
-			m_BlueShader->Bind();
-			Renderer::Submit(m_HexVertexArray);
-			
-			m_Shader->Bind();
-			Renderer::Submit(m_VertexArray);
+			Renderer::BeginScene(m_Camera);
+
+			Renderer::Submit(m_BlueShader, m_HexVertexArray);
+			Renderer::Submit(m_Shader, m_VertexArray);
 			
 			Renderer::EndScene();
 
@@ -187,6 +196,9 @@ namespace LittleWooden {
 
 
 			m_Window->OnUpdate();
+
+			// rotating camera
+			t_Rot += 0.1;
 		}
 	}
 
