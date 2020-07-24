@@ -14,6 +14,17 @@
 #include "LittleWooden/MouseButtonCodes.hpp"
 //---------------------------------------------
 
+//------Renderer-------------------------------
+#include "LittleWooden/Renderer/Renderer.hpp"
+#include "LittleWooden/Renderer/RenderCommand.hpp"
+
+#include "LittleWooden/Renderer/Buffer.hpp"
+#include "LittleWooden/Renderer/Shader.hpp"
+#include "LittleWooden/Renderer/VertexArray.hpp"
+
+#include "LittleWooden/Renderer/OrthographicCamera.hpp"
+//---------------------------------------------
+
 //------EntryPoint-----------------------------
 #include"LittleWooden/EntryPoint.hpp"
 //---------------------------------------------

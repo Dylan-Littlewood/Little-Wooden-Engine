@@ -6,14 +6,9 @@
 
 #include "LittleWooden/Window.hpp"
 #include "LittleWooden/LayerStack.hpp"
-
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
 
-#include "LittleWooden/Renderer/Shader.hpp"
-#include "LittleWooden/Renderer/Buffer.hpp"
-#include "LittleWooden/Renderer/VertexArray.hpp"
-#include "LittleWooden/Renderer/OrthographicCamera.hpp"
 
 
 namespace LittleWooden {
@@ -41,13 +36,6 @@ namespace LittleWooden {
 		bool m_Running = true;
 		LayerStack m_LayerStack;
 
-		std::shared_ptr<Shader> m_BlueShader;
-		std::shared_ptr<Shader> m_Shader;
-		
-		std::shared_ptr<VertexArray> m_VertexArray;
-		std::shared_ptr<VertexArray> m_HexVertexArray;
-
-		OrthographicCamera m_Camera;
 	private:
 		static Application* s_Instance;
 	};
