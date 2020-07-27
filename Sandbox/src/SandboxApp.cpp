@@ -125,27 +125,29 @@ public:
 
 	}
 
-	void OnUpdate() override
+	void OnUpdate(LittleWooden::Timestep ts) override
 	{
+		// LW_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
+
 		// Camera Movement -------------------------------------------------
 		if (!LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT_SHIFT))
 		{
 			if (LittleWooden::Input::IsKeyPressed(LW_KEY_RIGHT))
-				m_CameraPosition.x += m_CameraMovementSpeed;
+				m_CameraPosition.x += m_CameraMovementSpeed * ts;
 			else if (LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT))
-				m_CameraPosition.x -= m_CameraMovementSpeed;
+				m_CameraPosition.x -= m_CameraMovementSpeed * ts;
 
 			if (LittleWooden::Input::IsKeyPressed(LW_KEY_UP))
-				m_CameraPosition.y += m_CameraMovementSpeed;
+				m_CameraPosition.y += m_CameraMovementSpeed * ts;
 			else if (LittleWooden::Input::IsKeyPressed(LW_KEY_DOWN))
-				m_CameraPosition.y -= m_CameraMovementSpeed;
+				m_CameraPosition.y -= m_CameraMovementSpeed * ts;
 		}
 		else if (LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT_SHIFT))
 		{
 			if (LittleWooden::Input::IsKeyPressed(LW_KEY_RIGHT))
-				m_CameraRotation += m_CameraRotationSpeed;
+				m_CameraRotation += m_CameraRotationSpeed * ts;
 			else if (LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT))
-				m_CameraRotation -= m_CameraRotationSpeed;
+				m_CameraRotation -= m_CameraRotationSpeed * ts;
 		}
 		// Camera Movement -------------------------------------------------
 
@@ -177,6 +179,13 @@ public:
 
 	bool OnKeyPressedEvent(LittleWooden::KeyPressedEvent& event)
 	{
+
+		if (LittleWooden::Input::IsKeyPressed(LW_KEY_ESCAPE))
+		{
+			LW_INFO("Escape Key Pressed!");
+			
+		}
+
 		return false;
 	}
 private:
@@ -192,8 +201,8 @@ private:
 	glm::vec3 m_CameraPosition;
 	float m_CameraRotation = 0.0f;
 	
-	float m_CameraMovementSpeed = 0.1f;
-	float m_CameraRotationSpeed = 1.0f;
+	float m_CameraMovementSpeed = 5.0f;
+	float m_CameraRotationSpeed = 180.0f;
 	//-----------------------------------------
 };
 

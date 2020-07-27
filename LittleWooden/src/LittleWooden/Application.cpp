@@ -1,7 +1,11 @@
 #include "lwpch.hpp"
 #include "Application.hpp"
 
+
+#include "GLFW/glfw3.h"
 #include "LittleWooden/Input.hpp"
+
+#include "LittleWooden/Core/Timestep.hpp"
 
 #include "Renderer/Renderer.hpp"
 
@@ -52,8 +56,12 @@ namespace LittleWooden {
 		// infinite loop
 		while (m_Running)
 		{
+			float time = (float)glfwGetTime(); // Change to Platform::GetTime() at some point.
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate();
+				layer->OnUpdate(timestep);
 
 			// Rendering The ImGui For the Application
 			m_ImGuiLayer->Begin();

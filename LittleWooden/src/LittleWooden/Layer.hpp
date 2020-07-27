@@ -2,6 +2,7 @@
 
 #include "LittleWooden/Core.hpp"
 #include "LittleWooden/Events/Event.hpp"
+#include "LittleWooden/Core/Timestep.hpp"
 
 namespace LittleWooden {
 
@@ -13,7 +14,7 @@ namespace LittleWooden {
 
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
-		virtual void OnUpdate() {}
+		virtual void OnUpdate(Timestep ts) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(Event& event) {}
 
