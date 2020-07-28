@@ -1,12 +1,13 @@
 #include <LittleWooden.hpp>
 
 #include <imgui/imgui.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 class ExampleLayer : public LittleWooden::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_HexPosition(0.0f)
 	{
 		// Draw a triangle to the screen
 		m_VertexArray.reset(LittleWooden::VertexArray::Create());
@@ -37,12 +38,12 @@ public:
 
 		float hexVertices[3 * 6] = {
 			// Hex points
-			 0.4f,  0.0f, 0.0f,
-			 0.2f,  0.35f, 0.0f,
-			-0.2f,  0.35f, 0.0f,
-			-0.4f,  0.0f, 0.0f,
-			-0.2f, -0.35f, 0.0f,
-			 0.2f, -0.35f, 0.0f
+			 0.0f,  0.4f, 0.0f,
+			 0.35f, 0.2f, 0.0f,
+			 0.35f,-0.2f, 0.0f,
+			 0.0f, -0.4f, 0.0f,
+			-0.35f,-0.2f, 0.0f,
+			-0.35f, 0.2f, 0.0f
 		};
 		std::shared_ptr<LittleWooden::VertexBuffer> hexVB;
 		hexVB.reset(LittleWooden::VertexBuffer::Create(hexVertices, sizeof(hexVertices)));
@@ -62,6 +63,7 @@ public:
 			layout(location = 1) in vec4 a_Color;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 			out vec4 v_Color;
@@ -70,7 +72,7 @@ public:
 			{
 				v_Position = a_Position;
 				v_Color = a_Color;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -95,13 +97,14 @@ public:
 			layout(location = 0) in vec3 a_Position;
 
 			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
 
 			out vec3 v_Position;
 
 			void main()
 			{
 				v_Position = a_Position;
-				gl_Position = u_ViewProjection * vec4(a_Position, 1.0);
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
 			}
 		)";
 
@@ -150,6 +153,18 @@ public:
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
 		}
 		// Camera Movement -------------------------------------------------
+		
+		// Hex Movement ----------------------------------------------------
+		if (LittleWooden::Input::IsKeyPressed(LW_KEY_D))
+			m_HexPosition.x += m_HexMovementSpeed * ts;
+		else if (LittleWooden::Input::IsKeyPressed(LW_KEY_A))
+			m_HexPosition.x -= m_HexMovementSpeed * ts;
+
+		if (LittleWooden::Input::IsKeyPressed(LW_KEY_W))
+			m_HexPosition.y += m_HexMovementSpeed * ts;
+		else if (LittleWooden::Input::IsKeyPressed(LW_KEY_S))
+			m_HexPosition.y -= m_HexMovementSpeed * ts;
+		// Hex Movement ----------------------------------------------------
 
 		LittleWooden::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
 		LittleWooden::RenderCommand::Clear();
@@ -159,11 +174,27 @@ public:
 
 		LittleWooden::Renderer::BeginScene(m_Camera);
 
-		LittleWooden::Renderer::Submit(m_BlueShader, m_HexVertexArray);
-		LittleWooden::Renderer::Submit(m_Shader, m_VertexArray);
+		// --------------------------------- Render hex grid ---------------------------------
+		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
+		
+		for (int y = 0; y < 20; y++)
+		{
+			for (int x = 0; x < 20; x++)
+			{
+				glm::vec3 pos(x * 0.15f + (y & 1) * 0.075, y * 0.13f, 0.0f);
+				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
+				LittleWooden::Renderer::Submit(m_BlueShader, m_HexVertexArray, transform);
+			}
+		}
+		// --------------------------------- Render hex grid ---------------------------------
+
+		// --------------------------------- Render Triangle ---------------------------------
+		 glm::mat4 movement = glm::translate(glm::mat4(1.0f), m_HexPosition) * scale;
+		 LittleWooden::Renderer::Submit(m_Shader, m_VertexArray, movement);
+		// --------------------------------- Render Triangle ---------------------------------
 
 		LittleWooden::Renderer::EndScene();
-		
+
 	}
 
 	void OnImGuiRender() override
@@ -179,15 +210,17 @@ public:
 
 	bool OnKeyPressedEvent(LittleWooden::KeyPressedEvent& event)
 	{
-
+		// TEMPORARY ------ Exit with esc key ------ TEMPORARY
 		if (LittleWooden::Input::IsKeyPressed(LW_KEY_ESCAPE))
 		{
 			LW_INFO("Escape Key Pressed!");
-			
+			LittleWooden::Application::Get().Exit();
 		}
+		// TEMPORARY ------ Exit with esc key ------ TEMPORARY
 
 		return false;
 	}
+
 private:
 	std::shared_ptr<LittleWooden::Shader> m_BlueShader;
 	std::shared_ptr<LittleWooden::Shader> m_Shader;
@@ -204,6 +237,9 @@ private:
 	float m_CameraMovementSpeed = 5.0f;
 	float m_CameraRotationSpeed = 180.0f;
 	//-----------------------------------------
+
+	glm::vec3 m_HexPosition;
+	float m_HexMovementSpeed = 1.0f;
 };
 
 class Sandbox : public LittleWooden::Application
@@ -213,10 +249,8 @@ public:
 	{
 		PushLayer(new ExampleLayer());
 	}
-	~Sandbox()
-	{
 
-	}
+	~Sandbox() = default;
 };
 
 LittleWooden::Application* LittleWooden::CreateApplication()

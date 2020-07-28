@@ -22,6 +22,10 @@ namespace LittleWooden {
 
 		void Run();
 
+		// TEMPORARY -- For exit with esc key -- TEMPORARY
+		void Exit();
+		// TEMPORARY -- For exit with esc key -- TEMPORARY
+
 		void OnEvent(Event& e);
 
 		void PushLayer(Layer* layer);

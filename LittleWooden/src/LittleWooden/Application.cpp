@@ -74,10 +74,19 @@ namespace LittleWooden {
 		}
 	}
 
+
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		m_Running = false;
+		Exit();
 		return true;
 	}
+
+	
+	// TEMPORARY -- For exit with esc key -- TEMPORARY
+	void Application::Exit()
+	{
+		m_Running = false;
+	}
+	// TEMPORARY -- For exit with esc key -- TEMPORARY
 
 }
