@@ -1,7 +1,7 @@
 #pragma once
 #include "lwpch.hpp"
 
-#include "LittleWooden/Core.hpp"
+#include "LittleWooden/Base.hpp"
 
 
 namespace LittleWooden {

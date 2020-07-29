@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LittleWooden/Core.hpp"
+#include "LittleWooden/Base.hpp"
 
 namespace LittleWooden {
 

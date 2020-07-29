@@ -23,7 +23,7 @@ public:
 			 0.0f,  0.2f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		std::shared_ptr<LittleWooden::VertexBuffer> vertexBuffer;
+		LittleWooden::Ref<LittleWooden::VertexBuffer> vertexBuffer;
 		vertexBuffer.reset(LittleWooden::VertexBuffer::Create(vertices, sizeof(vertices)));
 		LittleWooden::BufferLayout layout = {
 			{LittleWooden::ShaderDataType::Float3, "a_Position" },
@@ -34,7 +34,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2 };
-		std::shared_ptr<LittleWooden::IndexBuffer> indexBuffer;
+		LittleWooden::Ref<LittleWooden::IndexBuffer> indexBuffer;
 		indexBuffer.reset(LittleWooden::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
@@ -49,14 +49,14 @@ public:
 			-0.35f,-0.2f, 0.0f,
 			-0.35f, 0.2f, 0.0f
 		};
-		std::shared_ptr<LittleWooden::VertexBuffer> hexVB;
+		LittleWooden::Ref<LittleWooden::VertexBuffer> hexVB;
 		hexVB.reset(LittleWooden::VertexBuffer::Create(hexVertices, sizeof(hexVertices)));
 
 		hexVB->SetLayout({ {LittleWooden::ShaderDataType::Float3, "a_Position" } });
 		m_HexVertexArray->AddVertexBuffer(hexVB);
 
 		unsigned int hexIndices[12] = { 0, 1, 5, 1, 2, 4, 2, 3, 4, 4, 5, 1 };
-		std::shared_ptr<LittleWooden::IndexBuffer> hexIB;
+		LittleWooden::Ref<LittleWooden::IndexBuffer> hexIB;
 		hexIB.reset(LittleWooden::IndexBuffer::Create(hexIndices, sizeof(hexIndices) / sizeof(uint32_t)));
 		m_HexVertexArray->SetIndexBuffer(hexIB);
 
@@ -180,7 +180,6 @@ public:
 
 		LittleWooden::Renderer::BeginScene(m_Camera);
 
-
 		// --------------------------------- Render hex grid ---------------------------------
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
 
@@ -242,11 +241,11 @@ public:
 	}
 
 private:
-	std::shared_ptr<LittleWooden::Shader> m_FlatColorShader;
-	std::shared_ptr<LittleWooden::Shader> m_Shader;
-
-	std::shared_ptr<LittleWooden::VertexArray> m_VertexArray;
-	std::shared_ptr<LittleWooden::VertexArray> m_HexVertexArray;
+	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader;
+	LittleWooden::Ref<LittleWooden::Shader> m_Shader;
+	
+	LittleWooden::Ref<LittleWooden::VertexArray> m_VertexArray;
+	LittleWooden::Ref<LittleWooden::VertexArray> m_HexVertexArray;
 
 	// Camera Variables -----------------------
 	LittleWooden::OrthographicCamera m_Camera;
