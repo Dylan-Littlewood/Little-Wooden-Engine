@@ -50,7 +50,7 @@ namespace LittleWooden {
 				break;
 		}
 	}
-	
+
 	void Application::Run()
 	{
 		// infinite loop

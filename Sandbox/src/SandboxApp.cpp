@@ -1,7 +1,11 @@
 #include <LittleWooden.hpp>
 
 #include <imgui/imgui.h>
+
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "Platform/OpenGL/OpenGLShader.hpp"
 
 class ExampleLayer : public LittleWooden::Layer
 {
@@ -91,7 +95,7 @@ public:
 				color = v_Color;
 			}
 		)";
-		std::string tealShaderVertexSrc = R"(
+		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 
 			layout(location = 0) in vec3 a_Position;
@@ -109,22 +113,24 @@ public:
 		)";
 
 
-		std::string tealShaderFragmentSrc = R"(
+		std::string flatColorShaderFragmentSrc = R"(
 			#version 330 core
 
 			layout(location = 0) out vec4 color;
 
 			in vec3 v_Position;
 
+			uniform vec3 u_Color;
+
 			void main()
 			{
-				color = vec4(0.2, 0.5, 0.5, 1.0);
+				color = vec4(u_Color, 1.0);
 			}
 		)";
 
 
-		m_Shader.reset(new LittleWooden::Shader(vertexSrc, fragmentSrc));
-		m_BlueShader.reset(new LittleWooden::Shader(tealShaderVertexSrc, tealShaderFragmentSrc));
+		m_Shader.reset(LittleWooden::Shader::Create(vertexSrc, fragmentSrc));
+		m_FlatColorShader.reset(LittleWooden::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
 
 	}
 
@@ -174,22 +180,31 @@ public:
 
 		LittleWooden::Renderer::BeginScene(m_Camera);
 
+
 		// --------------------------------- Render hex grid ---------------------------------
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
-		
-		for (int y = 0; y < 20; y++)
+
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_FlatColorShader)->Bind();
+
+		for (int y = 0; y < 10; y++)
 		{
-			for (int x = 0; x < 20; x++)
+			for (int x = 0; x < 10; x++)
 			{
-				glm::vec3 pos(x * 0.15f + (y & 1) * 0.075, y * 0.13f, 0.0f);
+				glm::vec3 pos(x * 0.15f + y % 2 * 0.075, y * 0.13f, 0.0f);
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-				LittleWooden::Renderer::Submit(m_BlueShader, m_HexVertexArray, transform);
+
+				if(x % 2 == 0)
+					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_HexColor);
+				else
+					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_HexAltColor);
+
+				LittleWooden::Renderer::Submit(m_FlatColorShader, m_HexVertexArray, transform);
 			}
 		}
 		// --------------------------------- Render hex grid ---------------------------------
 
 		// --------------------------------- Render Triangle ---------------------------------
-		 glm::mat4 movement = glm::translate(glm::mat4(1.0f), m_HexPosition) * scale;
+		 glm::mat4 const movement = glm::translate(glm::mat4(1.0f), m_HexPosition) * scale;
 		 LittleWooden::Renderer::Submit(m_Shader, m_VertexArray, movement);
 		// --------------------------------- Render Triangle ---------------------------------
 
@@ -199,7 +214,12 @@ public:
 
 	void OnImGuiRender() override
 	{
-		
+		ImGui::Begin("Settings");
+
+		ImGui::ColorEdit3("Hex Color", glm::value_ptr(m_HexColor));
+		ImGui::ColorEdit3("Hex Alt Color", glm::value_ptr(m_HexAltColor));
+
+		ImGui::End();
 	}
 
 	void OnEvent(LittleWooden::Event& event) override
@@ -222,7 +242,7 @@ public:
 	}
 
 private:
-	std::shared_ptr<LittleWooden::Shader> m_BlueShader;
+	std::shared_ptr<LittleWooden::Shader> m_FlatColorShader;
 	std::shared_ptr<LittleWooden::Shader> m_Shader;
 
 	std::shared_ptr<LittleWooden::VertexArray> m_VertexArray;
@@ -240,6 +260,9 @@ private:
 
 	glm::vec3 m_HexPosition;
 	float m_HexMovementSpeed = 1.0f;
+
+	glm::vec3 m_HexColor = { 0.2f, 0.5f, 0.5f };
+	glm::vec3 m_HexAltColor = { 0.8f, 0.2f, 0.3f };
 };
 
 class Sandbox : public LittleWooden::Application
