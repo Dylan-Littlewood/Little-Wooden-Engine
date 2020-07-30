@@ -17,6 +17,7 @@ IncludeDir["GLFW"] = "LittleWooden/vendor/GLFW/include"
 IncludeDir["Glad"] = "LittleWooden/vendor/Glad/include"
 IncludeDir["ImGui"] = "LittleWooden/vendor/imgui"
 IncludeDir["glm"] = "LittleWooden/vendor/glm"
+IncludeDir["stb_image"] = "LittleWooden/vendor/stb_image"
 
 group "Dependencies"
 	include "LittleWooden/vendor/GLFW"
@@ -42,6 +43,8 @@ project "LittleWooden"
 		"%{prj.name}/src/**.h",
 		"%{prj.name}/src/**.hpp",
 		"%{prj.name}/src/**.cpp",
+		"%{prj.name}/vendor/stb_image/**.h",
+		"%{prj.name}/vendor/stb_image/**.cpp",
 		"%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
 	}
@@ -58,7 +61,8 @@ project "LittleWooden"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.stb_image}"
 	}
 
 	links

@@ -22,6 +22,7 @@
 
 #include "LittleWooden/Renderer/Buffer.hpp"
 #include "LittleWooden/Renderer/Shader.hpp"
+#include "LittleWooden/Renderer/Texture.hpp"
 #include "LittleWooden/Renderer/VertexArray.hpp"
 
 #include "LittleWooden/Renderer/OrthographicCamera.hpp"

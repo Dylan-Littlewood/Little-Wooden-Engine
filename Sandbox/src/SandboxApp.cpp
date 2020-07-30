@@ -11,9 +11,9 @@ class ExampleLayer : public LittleWooden::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_HexPosition(0.0f)
+		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_TrianglePosition(0.0f), m_QuadPosition({ -0.75f,0.0f,0.0f })
 	{
-		// Draw a triangle to the screen
+		// Draw a triangle to the screen ----------------------------------------------------------------------------
 		m_VertexArray.reset(LittleWooden::VertexArray::Create());
 
 		float vertices[3 * 7] = {
@@ -38,6 +38,38 @@ public:
 		indexBuffer.reset(LittleWooden::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
+		// Draw a triangle to the screen -----------------------------------------------------------------------
+
+		// Draw a Quad to the screen ---------------------------------------------------------------------------
+		m_QuadVertexArray.reset(LittleWooden::VertexArray::Create());
+
+		float quadVertices[5 * 4] = {
+			// Quad points
+			-0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+			 0.5f, -0.5f, 0.0f, 1.0f, 0.0f,
+			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
+			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
+		};
+
+		LittleWooden::Ref<LittleWooden::VertexBuffer> quadVB;
+		quadVB.reset(LittleWooden::VertexBuffer::Create(quadVertices, sizeof(quadVertices)));
+
+		quadVB->SetLayout({
+			{LittleWooden::ShaderDataType::Float3, "a_Position" },
+			{LittleWooden::ShaderDataType::Float2, "a_TexCoord" }
+		});
+		
+		m_QuadVertexArray->AddVertexBuffer(quadVB);
+
+		unsigned int quadIndices[6] = { 0, 1, 2, 2, 3, 0 };
+		LittleWooden::Ref<LittleWooden::IndexBuffer> quadIB;
+		quadIB.reset(LittleWooden::IndexBuffer::Create(quadIndices, sizeof(quadIndices) / sizeof(uint32_t)));
+		m_QuadVertexArray->SetIndexBuffer(quadIB);
+		
+		// Draw a Quad to the screen ---------------------------------------------------------------------------
+
+		// Draw a Hex to the screen ----------------------------------------------------------------------------
+		
 		m_HexVertexArray.reset(LittleWooden::VertexArray::Create());
 
 		float hexVertices[3 * 6] = {
@@ -59,6 +91,8 @@ public:
 		LittleWooden::Ref<LittleWooden::IndexBuffer> hexIB;
 		hexIB.reset(LittleWooden::IndexBuffer::Create(hexIndices, sizeof(hexIndices) / sizeof(uint32_t)));
 		m_HexVertexArray->SetIndexBuffer(hexIB);
+		
+		// Draw a Hex to the screen ----------------------------------------------------------------------------
 
 		std::string vertexSrc = R"(
 			#version 330 core
@@ -95,6 +129,9 @@ public:
 				color = v_Color;
 			}
 		)";
+		
+		m_Shader.reset(LittleWooden::Shader::Create(vertexSrc, fragmentSrc));
+
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 
@@ -127,10 +164,48 @@ public:
 				color = vec4(u_Color, 1.0);
 			}
 		)";
-
-
-		m_Shader.reset(LittleWooden::Shader::Create(vertexSrc, fragmentSrc));
+		
 		m_FlatColorShader.reset(LittleWooden::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		
+		std::string textureShaderVertexSrc = R"(
+			#version 330 core
+
+			layout(location = 0) in vec3 a_Position;
+			layout(location = 1) in vec2 a_TexCoord;
+
+			uniform mat4 u_ViewProjection;
+			uniform mat4 u_Transform;
+
+			out vec2 v_TexCoord;
+
+			void main()
+			{
+				v_TexCoord = a_TexCoord;
+				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+			}
+		)";
+
+
+		std::string textureShaderFragmentSrc = R"(
+			#version 330 core
+
+			layout(location = 0) out vec4 color;
+
+			in vec2 v_TexCoord;
+
+			uniform sampler2D u_Texture;
+
+			void main()
+			{
+				color = texture(u_Texture, v_TexCoord);
+			}
+		)";
+
+		m_TextureShader.reset(LittleWooden::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		m_Texture = LittleWooden::Texture2D::Create("Images/Logo_Bad.png");
+
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_TextureShader)->Bind();
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -162,14 +237,14 @@ public:
 		
 		// Hex Movement ----------------------------------------------------
 		if (LittleWooden::Input::IsKeyPressed(LW_KEY_D))
-			m_HexPosition.x += m_HexMovementSpeed * ts;
+			m_TrianglePosition.x += m_TriangleMovementSpeed * ts;
 		else if (LittleWooden::Input::IsKeyPressed(LW_KEY_A))
-			m_HexPosition.x -= m_HexMovementSpeed * ts;
+			m_TrianglePosition.x -= m_TriangleMovementSpeed * ts;
 
 		if (LittleWooden::Input::IsKeyPressed(LW_KEY_W))
-			m_HexPosition.y += m_HexMovementSpeed * ts;
+			m_TrianglePosition.y += m_TriangleMovementSpeed * ts;
 		else if (LittleWooden::Input::IsKeyPressed(LW_KEY_S))
-			m_HexPosition.y -= m_HexMovementSpeed * ts;
+			m_TrianglePosition.y -= m_TriangleMovementSpeed * ts;
 		// Hex Movement ----------------------------------------------------
 
 		LittleWooden::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
@@ -202,9 +277,19 @@ public:
 		}
 		// --------------------------------- Render hex grid ---------------------------------
 
+		// --------------------------------- Render Quad -------------------------------------
+		static glm::mat4 quadScale = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
+		glm::mat4 const quadPos = glm::translate(glm::mat4(1.0f), m_QuadPosition) * quadScale;
+
+		m_Texture->Bind();
+
+		LittleWooden::Renderer::Submit(m_TextureShader, m_QuadVertexArray, quadPos);
+		// --------------------------------- Render Quad -------------------------------------
+
 		// --------------------------------- Render Triangle ---------------------------------
-		 glm::mat4 const movement = glm::translate(glm::mat4(1.0f), m_HexPosition) * scale;
-		 LittleWooden::Renderer::Submit(m_Shader, m_VertexArray, movement);
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_Shader)->Bind();
+		glm::mat4 const triangleMovement = glm::translate(glm::mat4(1.0f), m_TrianglePosition) * scale;
+		LittleWooden::Renderer::Submit(m_Shader, m_VertexArray, triangleMovement);
 		// --------------------------------- Render Triangle ---------------------------------
 
 		LittleWooden::Renderer::EndScene();
@@ -241,10 +326,13 @@ public:
 	}
 
 private:
-	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader;
 	LittleWooden::Ref<LittleWooden::Shader> m_Shader;
-	
+	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader, m_TextureShader;
+
+	LittleWooden::Ref<LittleWooden::Texture2D> m_Texture;
+
 	LittleWooden::Ref<LittleWooden::VertexArray> m_VertexArray;
+	LittleWooden::Ref<LittleWooden::VertexArray> m_QuadVertexArray;
 	LittleWooden::Ref<LittleWooden::VertexArray> m_HexVertexArray;
 
 	// Camera Variables -----------------------
@@ -257,8 +345,9 @@ private:
 	float m_CameraRotationSpeed = 180.0f;
 	//-----------------------------------------
 
-	glm::vec3 m_HexPosition;
-	float m_HexMovementSpeed = 1.0f;
+	glm::vec3 m_TrianglePosition;
+	glm::vec3 m_QuadPosition;
+	float m_TriangleMovementSpeed = 1.0f;
 
 	glm::vec3 m_HexColor = { 0.2f, 0.5f, 0.5f };
 	glm::vec3 m_HexAltColor = { 0.8f, 0.2f, 0.3f };
