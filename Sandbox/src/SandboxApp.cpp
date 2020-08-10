@@ -202,7 +202,8 @@ public:
 		)";
 
 		m_TextureShader.reset(LittleWooden::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
-		m_Texture = LittleWooden::Texture2D::Create("Images/Logo_Bad.png");
+		m_CheckerboardTexture = LittleWooden::Texture2D::Create("Images/Checkerboard.png");
+		m_LittleWoodenLogoTexture = LittleWooden::Texture2D::Create("Images/Logo_Bad.png");
 
 		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_TextureShader)->Bind();
 		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
@@ -281,8 +282,10 @@ public:
 		static glm::mat4 quadScale = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 		glm::mat4 const quadPos = glm::translate(glm::mat4(1.0f), m_QuadPosition) * quadScale;
 
-		m_Texture->Bind();
+		m_CheckerboardTexture->Bind();
+		LittleWooden::Renderer::Submit(m_TextureShader, m_QuadVertexArray, quadPos);
 
+		m_LittleWoodenLogoTexture->Bind();
 		LittleWooden::Renderer::Submit(m_TextureShader, m_QuadVertexArray, quadPos);
 		// --------------------------------- Render Quad -------------------------------------
 
@@ -329,7 +332,7 @@ private:
 	LittleWooden::Ref<LittleWooden::Shader> m_Shader;
 	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader, m_TextureShader;
 
-	LittleWooden::Ref<LittleWooden::Texture2D> m_Texture;
+	LittleWooden::Ref<LittleWooden::Texture2D> m_CheckerboardTexture, m_LittleWoodenLogoTexture;
 
 	LittleWooden::Ref<LittleWooden::VertexArray> m_VertexArray;
 	LittleWooden::Ref<LittleWooden::VertexArray> m_QuadVertexArray;
