@@ -130,7 +130,7 @@ public:
 			}
 		)";
 		
-		m_Shader.reset(LittleWooden::Shader::Create(vertexSrc, fragmentSrc));
+		m_Shader = LittleWooden::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
 
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
@@ -165,15 +165,15 @@ public:
 			}
 		)";
 		
-		m_FlatColorShader.reset(LittleWooden::Shader::Create(flatColorShaderVertexSrc, flatColorShaderFragmentSrc));
+		m_FlatColorShader = LittleWooden::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
+		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
-		m_TextureShader.reset(LittleWooden::Shader::Create("assets/shaders/Texture.glsl"));
 		m_CheckerboardTexture = LittleWooden::Texture2D::Create("assets/images/Checkerboard.png");
 		m_LittleWoodenLogoTexture = LittleWooden::Texture2D::Create("assets/images/Logo_Bad.png");
 
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_TextureShader)->Bind();
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_TextureShader)->UploadUniformInt("u_Texture", 0);
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->Bind();
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
 
 	}
 
@@ -249,11 +249,13 @@ public:
 		static glm::mat4 quadScale = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 		glm::mat4 const quadPos = glm::translate(glm::mat4(1.0f), m_QuadPosition) * quadScale;
 
+		auto textureShader = m_ShaderLibrary.Get("Texture");
+
 		m_CheckerboardTexture->Bind();
-		LittleWooden::Renderer::Submit(m_TextureShader, m_QuadVertexArray, quadPos);
+		LittleWooden::Renderer::Submit(textureShader, m_QuadVertexArray, quadPos);
 
 		m_LittleWoodenLogoTexture->Bind();
-		LittleWooden::Renderer::Submit(m_TextureShader, m_QuadVertexArray, quadPos);
+		LittleWooden::Renderer::Submit(textureShader, m_QuadVertexArray, quadPos);
 		// --------------------------------- Render Quad -------------------------------------
 
 		// --------------------------------- Render Triangle ---------------------------------
@@ -296,8 +298,9 @@ public:
 	}
 
 private:
+	LittleWooden::ShaderLibrary m_ShaderLibrary;
 	LittleWooden::Ref<LittleWooden::Shader> m_Shader;
-	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader, m_TextureShader;
+	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader;
 
 	LittleWooden::Ref<LittleWooden::Texture2D> m_CheckerboardTexture, m_LittleWoodenLogoTexture;
 
