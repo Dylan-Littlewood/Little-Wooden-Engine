@@ -14,6 +14,7 @@
 #include "LittleWooden/Input.hpp"
 #include "LittleWooden/KeyCodes.hpp"
 #include "LittleWooden/MouseButtonCodes.hpp"
+#include "LittleWooden/OrthographicCameraController.hpp"
 //---------------------------------------------
 
 //------Renderer-------------------------------

@@ -11,7 +11,7 @@ class ExampleLayer : public LittleWooden::Layer
 {
 public:
 	ExampleLayer()
-		: Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f), m_TrianglePosition(0.0f), m_QuadPosition({ -0.75f,0.0f,0.0f })
+		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true), m_TrianglePosition(0.0f), m_QuadPosition({ -0.75f,0.0f,0.0f })
 	{
 		// Draw a triangle to the screen ----------------------------------------------------------------------------
 		m_VertexArray.reset(LittleWooden::VertexArray::Create());
@@ -179,30 +179,13 @@ public:
 
 	void OnUpdate(LittleWooden::Timestep ts) override
 	{
+		// Update
+		m_CameraController.OnUpdate(ts);
+
+		// Render
+
 		// LW_TRACE("Delta time: {0}s ({1}ms)", ts.GetSeconds(), ts.GetMilliseconds());
 
-		// Camera Movement -------------------------------------------------
-		if (!LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT_SHIFT))
-		{
-			if (LittleWooden::Input::IsKeyPressed(LW_KEY_RIGHT))
-				m_CameraPosition.x += m_CameraMovementSpeed * ts;
-			else if (LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT))
-				m_CameraPosition.x -= m_CameraMovementSpeed * ts;
-
-			if (LittleWooden::Input::IsKeyPressed(LW_KEY_UP))
-				m_CameraPosition.y += m_CameraMovementSpeed * ts;
-			else if (LittleWooden::Input::IsKeyPressed(LW_KEY_DOWN))
-				m_CameraPosition.y -= m_CameraMovementSpeed * ts;
-		}
-		else if (LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT_SHIFT))
-		{
-			if (LittleWooden::Input::IsKeyPressed(LW_KEY_RIGHT))
-				m_CameraRotation += m_CameraRotationSpeed * ts;
-			else if (LittleWooden::Input::IsKeyPressed(LW_KEY_LEFT))
-				m_CameraRotation -= m_CameraRotationSpeed * ts;
-		}
-		// Camera Movement -------------------------------------------------
-		
 		// Hex Movement ----------------------------------------------------
 		if (LittleWooden::Input::IsKeyPressed(LW_KEY_D))
 			m_TrianglePosition.x += m_TriangleMovementSpeed * ts;
@@ -218,10 +201,7 @@ public:
 		LittleWooden::RenderCommand::SetClearColor({ 0.2f, 0.2f, 0.2f, 1 });
 		LittleWooden::RenderCommand::Clear();
 
-		m_Camera.SetPosition(m_CameraPosition);
-		m_Camera.SetRotation(m_CameraRotation);
-
-		LittleWooden::Renderer::BeginScene(m_Camera);
+		LittleWooden::Renderer::BeginScene(m_CameraController.GetCamera());
 
 		// --------------------------------- Render hex grid ---------------------------------
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
@@ -278,9 +258,11 @@ public:
 		ImGui::End();
 	}
 
-	void OnEvent(LittleWooden::Event& event) override
+	void OnEvent(LittleWooden::Event& e) override
 	{
-		LittleWooden::EventDispatcher dispatcher(event);
+		m_CameraController.OnEvent(e);
+
+		LittleWooden::EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<LittleWooden::KeyPressedEvent>(LW_BIND_EVENT_FN(ExampleLayer::OnKeyPressedEvent));
 	}
 
@@ -309,13 +291,8 @@ private:
 	LittleWooden::Ref<LittleWooden::VertexArray> m_HexVertexArray;
 
 	// Camera Variables -----------------------
-	LittleWooden::OrthographicCamera m_Camera;
+	LittleWooden::OrthographicCameraController m_CameraController;
 	
-	glm::vec3 m_CameraPosition;
-	float m_CameraRotation = 0.0f;
-	
-	float m_CameraMovementSpeed = 5.0f;
-	float m_CameraRotationSpeed = 180.0f;
 	//-----------------------------------------
 
 	glm::vec3 m_TrianglePosition;
