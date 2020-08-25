@@ -44,6 +44,7 @@ namespace LittleWooden {
 		// Makes the Application::OnWindowClose Event run when a WindowCloseEvent occurs
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(LW_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(LW_BIND_EVENT_FN(Application::OnWindowResize));
 
 		for (auto iterator = m_LayerStack.end(); iterator != m_LayerStack.begin();)
 		{
@@ -62,8 +63,11 @@ namespace LittleWooden {
 			Timestep timestep = time - m_LastFrameTime;
 			m_LastFrameTime = time;
 
-			for (Layer* layer : m_LayerStack)
-				layer->OnUpdate(timestep);
+			if (!m_Minimized)
+			{
+				for (Layer* layer : m_LayerStack)
+					layer->OnUpdate(timestep);
+			}
 
 			// Rendering The ImGui For the Application
 			m_ImGuiLayer->Begin();
@@ -79,8 +83,22 @@ namespace LittleWooden {
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		Exit();
+		Exit(); // TEMPORARY
 		return true;
+	}
+
+	bool Application::OnWindowResize(WindowResizeEvent& e)
+	{
+		if (e.GetHeight() == 0 || e.GetWidth() == 0)
+		{
+			m_Minimized = true;
+			return false;
+		}
+		m_Minimized = false;
+
+		Renderer::OnWindowResize(e.GetWidth(), e.GetHeight());
+
+		return false;
 	}
 
 	
