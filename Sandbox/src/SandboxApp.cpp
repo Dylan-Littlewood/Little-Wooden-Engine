@@ -14,7 +14,7 @@ public:
 		: Layer("Example"), m_CameraController(1280.0f / 720.0f, true), m_TrianglePosition(0.0f), m_QuadPosition({ -0.75f,0.0f,0.0f })
 	{
 		// Draw a triangle to the screen ----------------------------------------------------------------------------
-		m_VertexArray.reset(LittleWooden::VertexArray::Create());
+		m_VertexArray = LittleWooden::VertexArray::Create();
 
 		float vertices[3 * 7] = {
 			// triangle points		// Colors of points
@@ -41,7 +41,7 @@ public:
 		// Draw a triangle to the screen -----------------------------------------------------------------------
 
 		// Draw a Quad to the screen ---------------------------------------------------------------------------
-		m_QuadVertexArray.reset(LittleWooden::VertexArray::Create());
+		m_QuadVertexArray = LittleWooden::VertexArray::Create();
 
 		float quadVertices[5 * 4] = {
 			// Quad points
@@ -70,7 +70,7 @@ public:
 
 		// Draw a Hex to the screen ----------------------------------------------------------------------------
 		
-		m_HexVertexArray.reset(LittleWooden::VertexArray::Create());
+		m_HexVertexArray = LittleWooden::VertexArray::Create();
 
 		float hexVertices[3 * 6] = {
 			// Hex points
@@ -254,6 +254,9 @@ public:
 
 		ImGui::ColorEdit3("Hex Color", glm::value_ptr(m_HexColor));
 		ImGui::ColorEdit3("Hex Alt Color", glm::value_ptr(m_HexAltColor));
+		ImGui::Text("Camera Position x:%f y:%f z:%f", m_CameraController.GetCamera().GetPosition().x, m_CameraController.GetCamera().GetPosition().y, m_CameraController.GetCamera().GetPosition().z);
+		ImGui::Text("Camera Rotation: %f", m_CameraController.GetCamera().GetRotation());
+		ImGui::Text("Camera Zoom Level: %f", m_CameraController.GetZoomLevel());
 
 		ImGui::End();
 	}

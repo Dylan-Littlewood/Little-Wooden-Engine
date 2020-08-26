@@ -6,12 +6,12 @@
 
 namespace LittleWooden {
 
-	VertexArray* VertexArray::Create()
+	Ref<VertexArray> VertexArray::Create()
 	{
 		switch (Renderer::GetAPI())
 		{
 		case RendererAPI::API::None:	LW_CORE_ASSERT(false, "RenderAPI::None is currentley not supported!"); return nullptr;
-		case RendererAPI::API::OpenGL:	return new OpenGLVertexArray();
+		case RendererAPI::API::OpenGL:	return CreateRef<OpenGLVertexArray>();
 		}
 
 		LW_CORE_ASSERT(false, "Unknown RendererAPI!");

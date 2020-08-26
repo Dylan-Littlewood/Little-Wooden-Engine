@@ -26,7 +26,7 @@ namespace LittleWooden {
 			glm::mat4 ProjectionViewMatrix;
 		};
 
-		static SceneData* s_SceneData;
+		static Scope<SceneData> s_SceneData;
 	};
 
 }

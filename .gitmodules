@@ -1,12 +1,16 @@
 [submodule "LittleWooden/vendor/spdlog"]
 	path = LittleWooden/vendor/spdlog
-url=https://github.com/Dylan-Littlewood/spdlog
+	url = https://github.com/Dylan-Littlewood/spdlog
+	branch = v1.x
 [submodule "LittleWooden/vendor/GLFW"]
 	path = LittleWooden/vendor/GLFW
 	url = https://github.com/Dylan-Littlewood/glfw
-[submodule "LittleWooden/vendor/glm"]
-	path = LittleWooden/vendor/glm
-	url = https://github.com/g-truc/glm
+	branch = master
 [submodule "LittleWooden/vendor/imgui"]
 	path = LittleWooden/vendor/imgui
 	url = https://github.com/Dylan-Littlewood/imgui
+	branch = docking
+[submodule "LittleWooden/vendor/glm"]
+	path = LittleWooden/vendor/glm
+	url = https://github.com/g-truc/glm
+	branch = master

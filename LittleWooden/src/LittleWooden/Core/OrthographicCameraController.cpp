@@ -6,8 +6,8 @@
 
 namespace LittleWooden {
 
-	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
-		:m_AspectRatio(aspectRatio), m_Rotation(rotation), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
+	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotationEnabled)
+		:m_AspectRatio(aspectRatio), m_RotationEnabled(rotationEnabled), m_Camera(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel)
 	{
 	}
 	
@@ -24,23 +24,40 @@ namespace LittleWooden {
 		if (!Input::IsKeyPressed(LW_KEY_LEFT_SHIFT))
 		{
 			if (Input::IsKeyPressed(LW_KEY_RIGHT))
-				m_CameraPosition.x += m_CameraTranslationSpeed * ts;
+			{
+				m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+				m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			}
 			else if (Input::IsKeyPressed(LW_KEY_LEFT))
-				m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
+			{
+				m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+				m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			}
 
 			if (Input::IsKeyPressed(LW_KEY_UP))
-				m_CameraPosition.y += m_CameraTranslationSpeed * ts;
+			{
+				m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+				m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			}
 			else if (Input::IsKeyPressed(LW_KEY_DOWN))
-				m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+			{
+				m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+				m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			}
 		}
 		else if (Input::IsKeyPressed(LW_KEY_LEFT_SHIFT))
 		{
-			if (m_Rotation)
+			if (m_RotationEnabled)
 			{
 				if (Input::IsKeyPressed(LW_KEY_RIGHT))
 					m_CameraRotation += m_CameraRotationSpeed * ts;
 				else if (Input::IsKeyPressed(LW_KEY_LEFT))
 					m_CameraRotation -= m_CameraRotationSpeed * ts;
+
+				if (m_CameraRotation > 180.0f)
+					m_CameraRotation -= 360.0f;
+				else if (m_CameraRotation <= -180.0f)
+					m_CameraRotation += 360.0f;
 
 				m_Camera.SetRotation(m_CameraRotation);
 			}
