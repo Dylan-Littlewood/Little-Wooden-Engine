@@ -1,5 +1,5 @@
 #include "lwpch.hpp"
-#include "LittleWooden/Renderer/OrthographicCamera.hpp"
+#include "OrthographicCamera.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 

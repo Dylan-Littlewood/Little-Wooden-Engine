@@ -1,8 +1,8 @@
 #include "lwpch.hpp"
 #include "OrthographicCameraController.hpp"
 
-#include "LittleWooden/Input.hpp"
-#include "LittleWooden/KeyCodes.hpp"
+#include "LittleWooden/Core/Input.hpp"
+#include "LittleWooden/Core/KeyCodes.hpp"
 
 namespace LittleWooden {
 

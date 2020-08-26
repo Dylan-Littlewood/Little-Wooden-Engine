@@ -2,19 +2,19 @@
 
 // For use by Little Wooden Engine Applications
 
-#include "LittleWooden/Application.hpp"
-#include "LittleWooden/Layer.hpp"
-#include "LittleWooden/Log.hpp"
+#include "LittleWooden/Core/Application.hpp"
+#include "LittleWooden/Core/Layer.hpp"
+#include "LittleWooden/Core/Log.hpp"
 
 #include "LittleWooden/ImGui/ImGuiLayer.hpp"
 
 #include "LittleWooden/Core/Timestep.hpp"
 
 //------Input----------------------------------
-#include "LittleWooden/Input.hpp"
-#include "LittleWooden/KeyCodes.hpp"
-#include "LittleWooden/MouseButtonCodes.hpp"
-#include "LittleWooden/OrthographicCameraController.hpp"
+#include "LittleWooden/Core/Input.hpp"
+#include "LittleWooden/Core/KeyCodes.hpp"
+#include "LittleWooden/Core/MouseButtonCodes.hpp"
+#include "LittleWooden/Core/OrthographicCameraController.hpp"
 //---------------------------------------------
 
 //------Renderer-------------------------------
@@ -30,5 +30,5 @@
 //---------------------------------------------
 
 //------EntryPoint-----------------------------
-#include"LittleWooden/EntryPoint.hpp"
+#include"LittleWooden/Core/EntryPoint.hpp"
 //---------------------------------------------

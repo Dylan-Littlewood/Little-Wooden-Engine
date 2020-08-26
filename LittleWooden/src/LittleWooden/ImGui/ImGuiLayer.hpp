@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LittleWooden/Layer.hpp"
+#include "LittleWooden/Core/Layer.hpp"
 
 #include "LittleWooden/Events/KeyEvent.hpp"
 #include "LittleWooden/Events/MouseEvent.hpp"

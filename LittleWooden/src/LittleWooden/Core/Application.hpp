@@ -1,12 +1,12 @@
 #pragma once
 
-#include "LittleWooden/Base.hpp"
+#include "LittleWooden/Core/Base.hpp"
 
-#include "ImGui/ImGuiLayer.hpp"
+#include "LittleWooden/ImGui/ImGuiLayer.hpp"
 
 
-#include "LittleWooden/Window.hpp"
-#include "LittleWooden/LayerStack.hpp"
+#include "LittleWooden/Core/Window.hpp"
+#include "LittleWooden/Core/LayerStack.hpp"
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
 

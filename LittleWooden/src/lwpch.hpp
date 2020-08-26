@@ -14,7 +14,7 @@
 #include <unordered_map>
 #include <unordered_set>
 
-#include "LittleWooden/Log.hpp"
+#include "LittleWooden/Core/Log.hpp"
 
 #ifdef LW_PLATFORM_WINDOWS
 	#include <Windows.h>

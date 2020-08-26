@@ -1,7 +1,7 @@
 #pragma once
 
-#include "LittleWooden/Base.hpp"
-#include "LittleWooden/Layer.hpp"
+#include "LittleWooden/Core/Base.hpp"
+#include "LittleWooden/Core/Layer.hpp"
 
 #include <vector>
 

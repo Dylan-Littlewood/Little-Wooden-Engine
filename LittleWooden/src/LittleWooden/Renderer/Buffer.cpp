@@ -1,7 +1,7 @@
 #include "lwpch.hpp"
 #include "Buffer.hpp"
 
-#include "Renderer.hpp"
+#include "LittleWooden/Renderer/Renderer.hpp"
 
 #include "Platform/OpenGL/OpenGLBuffer.hpp"
 

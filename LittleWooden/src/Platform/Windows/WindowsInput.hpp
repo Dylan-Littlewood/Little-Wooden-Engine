@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LittleWooden/Input.hpp"
+#include "LittleWooden/Core/Input.hpp"
 
 namespace LittleWooden {
 

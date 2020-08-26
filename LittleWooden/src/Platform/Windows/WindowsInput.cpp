@@ -1,7 +1,7 @@
 #include "lwpch.hpp"
 #include "WindowsInput.hpp"
 
-#include "LittleWooden/Application.hpp"
+#include "LittleWooden/Core/Application.hpp"
 
 #include <GLFW/glfw3.h>
 

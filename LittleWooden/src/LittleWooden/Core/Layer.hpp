@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LittleWooden/Base.hpp"
+#include "LittleWooden/Core/Base.hpp"
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Core/Timestep.hpp"
 

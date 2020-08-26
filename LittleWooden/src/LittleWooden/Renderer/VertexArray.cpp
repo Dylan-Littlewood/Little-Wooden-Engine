@@ -1,7 +1,7 @@
 #include "lwpch.hpp"
 #include "VertexArray.hpp"
 
-#include "Renderer.hpp"
+#include "LittleWooden/Renderer/Renderer.hpp"
 #include "Platform/OpenGL/OpenGLVertexArray.hpp"
 
 namespace LittleWooden {

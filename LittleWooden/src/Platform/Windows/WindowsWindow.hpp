@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LittleWooden/Window.hpp"
+#include "LittleWooden/Core/Window.hpp"
 #include "LittleWooden/Renderer/GraphicsContext.hpp"
 
 #include <GLFW/glfw3.h>

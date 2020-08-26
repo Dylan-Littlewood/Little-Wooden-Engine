@@ -3,11 +3,11 @@
 
 
 #include "GLFW/glfw3.h"
-#include "LittleWooden/Input.hpp"
+#include "LittleWooden/Core/Input.hpp"
 
 #include "LittleWooden/Core/Timestep.hpp"
 
-#include "Renderer/Renderer.hpp"
+#include "LittleWooden/Renderer/Renderer.hpp"
 
 
 namespace LittleWooden {
