@@ -94,78 +94,14 @@ public:
 		
 		// Draw a Hex to the screen ----------------------------------------------------------------------------
 
-		std::string vertexSrc = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec4 a_Color;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec3 v_Position;
-			out vec4 v_Color;
-
-			void main()
-			{
-				v_Position = a_Position;
-				v_Color = a_Color;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
+		//m_Shader = LittleWooden::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
+		//m_FlatColorShader = LittleWooden::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
 
-		std::string fragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
-			in vec4 v_Color;
-
-			void main()
-			{
-				color = vec4(v_Position * 0.5 + 0.5, 1.0);
-				color = v_Color;
-			}
-		)";
-		
-		m_Shader = LittleWooden::Shader::Create("VertexPosColor", vertexSrc, fragmentSrc);
-
-		std::string flatColorShaderVertexSrc = R"(
-			#version 330 core
-
-			layout(location = 0) in vec3 a_Position;
-
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
-
-			out vec3 v_Position;
-
-			void main()
-			{
-				v_Position = a_Position;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			}
-		)";
-
-
-		std::string flatColorShaderFragmentSrc = R"(
-			#version 330 core
-
-			layout(location = 0) out vec4 color;
-
-			in vec3 v_Position;
-
-			uniform vec3 u_Color;
-
-			void main()
-			{
-				color = vec4(u_Color, 1.0);
-			}
-		)";
-		
-		m_FlatColorShader = LittleWooden::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
+		auto positionColorShader = m_ShaderLibrary.Load("assets/shaders/PositionColor.glsl");
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(positionColorShader)->Bind();
+		auto flatColorShader = m_ShaderLibrary.Load("assets/shaders/FlatColor.glsl");
+		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(flatColorShader)->Bind();
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
@@ -174,6 +110,8 @@ public:
 
 		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+
+
 
 	}
 
@@ -206,7 +144,7 @@ public:
 		// --------------------------------- Render hex grid ---------------------------------
 		static glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.2f));
 
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_FlatColorShader)->Bind();
+		auto flatColorShader = m_ShaderLibrary.Get("FlatColor");
 
 		for (int y = 0; y < 10; y++)
 		{
@@ -216,11 +154,11 @@ public:
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 
 				if(x % 2 == 0)
-					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_HexColor);
+					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", m_HexColor);
 				else
-					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_FlatColorShader)->UploadUniformFloat3("u_Color", m_HexAltColor);
+					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", m_HexAltColor);
 
-				LittleWooden::Renderer::Submit(m_FlatColorShader, m_HexVertexArray, transform);
+				LittleWooden::Renderer::Submit(flatColorShader, m_HexVertexArray, transform);
 			}
 		}
 		// --------------------------------- Render hex grid ---------------------------------
@@ -239,9 +177,10 @@ public:
 		// --------------------------------- Render Quad -------------------------------------
 
 		// --------------------------------- Render Triangle ---------------------------------
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(m_Shader)->Bind();
+		auto positionColorShader = m_ShaderLibrary.Get("PositionColor");
+
 		glm::mat4 const triangleMovement = glm::translate(glm::mat4(1.0f), m_TrianglePosition) * scale;
-		LittleWooden::Renderer::Submit(m_Shader, m_VertexArray, triangleMovement);
+		LittleWooden::Renderer::Submit(positionColorShader, m_VertexArray, triangleMovement);
 		// --------------------------------- Render Triangle ---------------------------------
 
 		LittleWooden::Renderer::EndScene();
@@ -284,8 +223,6 @@ public:
 
 private:
 	LittleWooden::ShaderLibrary m_ShaderLibrary;
-	LittleWooden::Ref<LittleWooden::Shader> m_Shader;
-	LittleWooden::Ref<LittleWooden::Shader> m_FlatColorShader;
 
 	LittleWooden::Ref<LittleWooden::Texture2D> m_CheckerboardTexture, m_LittleWoodenLogoTexture;
 
