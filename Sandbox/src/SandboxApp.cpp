@@ -1,4 +1,5 @@
 #include <LittleWooden.hpp>
+#include <LittleWooden/Core/EntryPoint.hpp>
 
 #include <imgui/imgui.h>
 
@@ -6,6 +7,8 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Platform/OpenGL/OpenGLShader.hpp"
+
+#include "Sandbox2D.hpp"
 
 class ExampleLayer : public LittleWooden::Layer
 {
@@ -106,7 +109,7 @@ public:
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_CheckerboardTexture = LittleWooden::Texture2D::Create("assets/images/Checkerboard.png");
-		m_LittleWoodenLogoTexture = LittleWooden::Texture2D::Create("assets/images/Logo_Bad.png");
+		m_LittleWoodenLogoTexture = LittleWooden::Texture2D::Create("assets/images/Logo_Good.png");
 
 		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->Bind();
 		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
@@ -248,7 +251,8 @@ class Sandbox : public LittleWooden::Application
 public:
 	Sandbox()
 	{
-		PushLayer(new ExampleLayer());
+		// PushLayer(new ExampleLayer());
+		PushLayer(new Sandbox2D());
 	}
 
 	~Sandbox() = default;

@@ -28,7 +28,3 @@
 
 #include "LittleWooden/Renderer/OrthographicCamera.hpp"
 //---------------------------------------------
-
-//------EntryPoint-----------------------------
-#include"LittleWooden/Core/EntryPoint.hpp"
-//---------------------------------------------
