@@ -1,6 +1,7 @@
 #include "lwpch.hpp"
 #include "WindowsWindow.hpp"
 
+#include "LittleWooden/Events/UIEvent.hpp"
 #include "LittleWooden/Events/KeyEvent.hpp"
 #include "LittleWooden/Events/MouseEvent.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
@@ -76,17 +77,17 @@ namespace LittleWooden {
 				
 			WindowCloseEvent event;
 			data.EventCallback(event);
+			
 		});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
 			switch (action)
 			{
 				case GLFW_PRESS:
 				{
-					KeyPressedEvent event(key, 0);
+					KeyPressedEvent event(key, false);
 					data.EventCallback(event);
 					break;
 				}
@@ -98,7 +99,7 @@ namespace LittleWooden {
 				}
 				case GLFW_REPEAT:
 				{
-					KeyPressedEvent event(key, 1);
+					KeyPressedEvent event(key, true);
 					data.EventCallback(event);
 					break;
 				}
@@ -108,8 +109,8 @@ namespace LittleWooden {
 		glfwSetCharCallback(m_Window, [](GLFWwindow* window, unsigned int keycode)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
 				KeyTypedEvent event(keycode);
+
 				data.EventCallback(event);
 			});
 
@@ -149,8 +150,19 @@ namespace LittleWooden {
 			MouseMovedEvent event((float)xPos, (float)yPos);
 			data.EventCallback(event);
 		});
-
 		//------------------------------------ Set GLFW Callbacks End --------------------------------------
+	}
+
+	void WindowsWindow::CallEvent(Event& event)
+	{
+		WindowData& data = *(WindowData*)glfwGetWindowUserPointer(m_Window);
+
+		data.EventCallback(event);
+	}
+
+	void WindowsWindow::GetMousePos(double* posX, double* posY)
+	{
+		glfwGetCursorPos(m_Window, posX, posY);
 	}
 
 	void WindowsWindow::Shutdown()

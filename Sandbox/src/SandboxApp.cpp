@@ -217,7 +217,7 @@ public:
 		if (LittleWooden::Input::IsKeyPressed(LW_KEY_ESCAPE))
 		{
 			LW_INFO("Escape Key Pressed!");
-			LittleWooden::Application::Get().Exit();
+			LittleWooden::Application::CallEvent(LittleWooden::WindowCloseEvent());
 		}
 		// TEMPORARY ------ Exit with esc key ------ TEMPORARY
 

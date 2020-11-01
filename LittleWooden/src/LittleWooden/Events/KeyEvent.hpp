@@ -20,21 +20,25 @@ namespace LittleWooden {
 	class KeyPressedEvent : public KeyEvent
 	{
 	public:
-		KeyPressedEvent(int keycode, int repeatCount)
-			: KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+		KeyPressedEvent(int keycode, bool keyHeld)
+			: KeyEvent(keycode), m_KeyHeld(keyHeld) {}
 
-		inline int GetRepeatCount() const { return m_RepeatCount; }
+		inline int IsKeyHeld() const { return m_KeyHeld; }
 
 		std::string ToString() const override
 		{
 			std::stringstream ss;
-			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << " repeats)";
+			ss << "KeyPressedEvent: " << m_KeyCode;
+			if (m_KeyHeld)
+			{
+				ss << " is held down";
+			}
 			return ss.str();
 		}
 
 		EVENT_CLASS_TYPE(KeyPressed)
 	private:
-		int m_RepeatCount;
+		bool m_KeyHeld;
 	};
 
 	class KeyReleasedEvent : public KeyEvent

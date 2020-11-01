@@ -39,6 +39,9 @@ namespace LittleWooden {
 
 		virtual void* GetNativeWindow() const = 0;
 
+		virtual void CallEvent(Event& event) = 0;
+		virtual void GetMousePos(double* posX, double* posY) = 0;
+
 		static Scope<Window> Create(const WindowProps& props = WindowProps());
 	};
 }

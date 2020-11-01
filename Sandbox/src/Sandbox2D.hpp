@@ -15,6 +15,8 @@ public:
 	virtual void OnImGuiRender() override;
 	void OnEvent(LittleWooden::Event& e) override;
 
+	bool OnKeyPressedEvent(LittleWooden::KeyPressedEvent& event);
+
 private:
 	LittleWooden::OrthographicCameraController m_CameraController;
 

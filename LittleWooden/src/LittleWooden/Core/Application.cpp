@@ -41,17 +41,20 @@ namespace LittleWooden {
 
 	void Application::OnEvent(Event& e)
 	{
+		//LW_CORE_INFO("{0}", e.ToString());
 		// Makes the Application::OnWindowClose Event run when a WindowCloseEvent occurs
 		EventDispatcher dispatcher(e);
 		dispatcher.Dispatch<WindowCloseEvent>(LW_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(LW_BIND_EVENT_FN(Application::OnWindowResize));
+		dispatcher.Dispatch<UIClickedEvent>(LW_BIND_EVENT_FN(Application::OnUIClicked));
 
-		for (auto iterator = m_LayerStack.end(); iterator != m_LayerStack.begin();)
+		for (auto layer : m_LayerStack)
 		{
-			(*--iterator)->OnEvent(e);
+			layer->OnEvent(e);
 			if (e.Handled)
 				break;
 		}
+
 	}
 
 	void Application::Run()
@@ -83,7 +86,7 @@ namespace LittleWooden {
 
 	bool Application::OnWindowClose(WindowCloseEvent& e)
 	{
-		Exit(); // TEMPORARY
+		m_Running = false;
 		return true;
 	}
 
@@ -101,12 +104,9 @@ namespace LittleWooden {
 		return false;
 	}
 
-	
-	// TEMPORARY -- For exit with esc key -- TEMPORARY
-	void Application::Exit()
+	bool Application::OnUIClicked(UIClickedEvent& e)
 	{
-		m_Running = false;
+		LW_CORE_INFO("{0}", e.ToString());
+		return false;
 	}
-	// TEMPORARY -- For exit with esc key -- TEMPORARY
-
 }

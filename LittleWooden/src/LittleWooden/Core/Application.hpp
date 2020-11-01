@@ -9,6 +9,7 @@
 #include "LittleWooden/Core/LayerStack.hpp"
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
+#include "LittleWooden/Events/UIEvent.hpp"
 
 
 
@@ -22,11 +23,9 @@ namespace LittleWooden {
 
 		void Run();
 
-		// TEMPORARY -- For exit with esc key -- TEMPORARY
-		void Exit();
-		// TEMPORARY -- For exit with esc key -- TEMPORARY
-
 		void OnEvent(Event& e);
+		static void CallEvent(Event& e) { Get().GetWindow().CallEvent(e); }
+		static void GetMousePos(double* posX, double* posY) { Get().GetWindow().GetMousePos(posX, posY); }
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);
@@ -36,6 +35,7 @@ namespace LittleWooden {
 	private:
 		bool OnWindowClose(WindowCloseEvent& e);
 		bool OnWindowResize(WindowResizeEvent& e);
+		bool OnUIClicked(UIClickedEvent& e);
 
 	private:
 		std::unique_ptr<Window> m_Window;

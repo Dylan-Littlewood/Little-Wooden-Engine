@@ -70,6 +70,12 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Text("Camera Position x:%f y:%f z:%f", m_CameraController.GetCamera().GetPosition().x, m_CameraController.GetCamera().GetPosition().y, m_CameraController.GetCamera().GetPosition().z);
 	ImGui::Text("Camera Rotation: %f", m_CameraController.GetCamera().GetRotation());
 	ImGui::Text("Camera Zoom Level: %f", m_CameraController.GetZoomLevel());
+	if (ImGui::Button("Test Button UI Event", { 200,20 }))
+	{
+		double mousePosX, mousePosY;
+		LittleWooden::Application::GetMousePos(&mousePosX, &mousePosY);
+		LittleWooden::Application::CallEvent(LittleWooden::UIClickedEvent(mousePosX, mousePosY));
+	}
 
 	ImGui::End();
 }
@@ -77,4 +83,16 @@ void Sandbox2D::OnImGuiRender()
 void Sandbox2D::OnEvent(LittleWooden::Event& e)
 {
 	m_CameraController.OnEvent(e);
+
+	LittleWooden::EventDispatcher dispatcher(e);
+	dispatcher.Dispatch<LittleWooden::KeyPressedEvent>(LW_BIND_EVENT_FN(Sandbox2D::OnKeyPressedEvent));
+}
+
+bool Sandbox2D::OnKeyPressedEvent(LittleWooden::KeyPressedEvent& event)
+{
+	if (LittleWooden::Input::IsKeyPressed(LW_KEY_ESCAPE))
+	{
+		LittleWooden::Application::CallEvent(LittleWooden::WindowCloseEvent());
+	}
+	return false;
 }
