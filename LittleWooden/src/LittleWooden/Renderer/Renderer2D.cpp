@@ -5,7 +5,7 @@
 #include "LittleWooden/Renderer/VertexArray.hpp"
 #include "LittleWooden/Renderer/Shader.hpp"
 
-#include "Platform/OpenGL/OpenGLShader.hpp"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace LittleWooden {
 
@@ -41,7 +41,7 @@ namespace LittleWooden {
 		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
 		s_Data->QuadVertexArray->SetIndexBuffer(squareIB);
 
-		s_Data->FlatColorShader = Shader::Create("assets/shaders/UIShader.glsl");
+		s_Data->FlatColorShader = Shader::Create("assets/shaders/FlatColor.glsl");
 	}
 
 	void Renderer2D::Shutdown()
@@ -51,9 +51,8 @@ namespace LittleWooden {
 
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->Bind();
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformMat4("u_ViewProjection", camera.GetProjectionViewMatrix());
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformMat4("u_Transform", glm::mat4(1.0f));
+		s_Data->FlatColorShader->Bind();
+		s_Data->FlatColorShader->SetMat4("u_ViewProjection", camera.GetProjectionViewMatrix());
 	}
 
 	void Renderer2D::EndScene()
@@ -68,11 +67,11 @@ namespace LittleWooden {
 
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->Bind();
+		s_Data->FlatColorShader->Bind();
+		s_Data->FlatColorShader->SetFloat4("u_Color", color);
 
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformFloat4("u_FillColor", color);
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformFloat4("u_BorderColor", { 0.0f, 0.0f, 0.0f, 1.0f });
-		std::dynamic_pointer_cast<OpenGLShader>(s_Data->FlatColorShader)->UploadUniformFloat("u_BorderWeight", 0.4f);
+		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position) * /* Rotation goes here */ glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
+		s_Data->FlatColorShader->SetMat4("u_Transform", transform);
 
 		s_Data->QuadVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->QuadVertexArray);

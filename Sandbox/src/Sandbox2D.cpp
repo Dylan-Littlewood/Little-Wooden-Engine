@@ -32,7 +32,8 @@ void Sandbox2D::OnUpdate(LittleWooden::Timestep ts)
 
 	LittleWooden::Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-	LittleWooden::Renderer2D::DrawQuad({ 0.0f, 0.0f }, { 1.0f, 1.0f }, m_SquareColor);
+	LittleWooden::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_SquareColor);
+	LittleWooden::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_SquareColor);
 
 	LittleWooden::Renderer2D::EndScene();
 }
