@@ -2,6 +2,7 @@
 #include "Renderer.hpp"
 
 #include "Platform/OpenGL/OpenGLShader.hpp"
+#include "LittleWooden/Renderer/Renderer2D.hpp"
 
 namespace LittleWooden {
 
@@ -10,6 +11,7 @@ namespace LittleWooden {
 	void Renderer::Init()
 	{
 		RenderCommand::Init();
+		Renderer2D::Init();
 	}
 
 	void Renderer::OnWindowResize(uint32_t width, uint32_t height)

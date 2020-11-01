@@ -25,7 +25,6 @@ namespace LittleWooden {
 
 		void OnEvent(Event& e);
 		static void CallEvent(Event& e) { Get().GetWindow().CallEvent(e); }
-		static void GetMousePos(double* posX, double* posY) { Get().GetWindow().GetMousePos(posX, posY); }
 
 		void PushLayer(Layer* layer);
 		void PushOverlay(Layer* overlay);

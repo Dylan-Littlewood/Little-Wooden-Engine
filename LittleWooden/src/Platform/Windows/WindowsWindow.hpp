@@ -27,7 +27,6 @@ namespace LittleWooden {
 		inline virtual void* GetNativeWindow() const { return m_Window; }
 
 		void CallEvent(Event& event) override;
-		void GetMousePos(double* posX, double* posY) override;
 
 	private:
 		virtual void Init(const WindowProps& props);
