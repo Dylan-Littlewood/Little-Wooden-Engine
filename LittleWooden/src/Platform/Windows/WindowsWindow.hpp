@@ -40,6 +40,7 @@ namespace LittleWooden {
 			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
+			bool Borders;
 
 			EventCallbackFn EventCallback;
 		};

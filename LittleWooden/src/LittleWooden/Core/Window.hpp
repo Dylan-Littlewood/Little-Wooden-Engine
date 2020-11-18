@@ -12,9 +12,10 @@ namespace LittleWooden {
 		std::string Title;
 		unsigned int Width;
 		unsigned int Height;
+		bool Borders;
 
-		WindowProps(const std::string& title = "Little Wooden Engine", unsigned int width = 1280, unsigned int height = 720)
-			:Title(title), Width(width), Height(height)
+		WindowProps(const std::string& title = "Little Wooden Engine", unsigned int width = 1280, unsigned int height = 720, bool borders = true)
+			:Title(title), Width(width), Height(height), Borders(borders)
 		{
 		}
 	};

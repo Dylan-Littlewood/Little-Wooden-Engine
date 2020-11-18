@@ -38,6 +38,7 @@ namespace LittleWooden {
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
+		m_Data.Borders = props.Borders;
 
 		LW_CORE_INFO("Creating Window {0} ({1}, {2})",m_Data.Title, m_Data.Width, m_Data.Height);
 
@@ -50,6 +51,16 @@ namespace LittleWooden {
 			LW_CORE_ASSERT(success, "Could not initialize GLFW!");
 			//GLFW Error Callback
 			glfwSetErrorCallback(GLFWErrorCallback);
+		}
+
+		//GLFW Borderless Mode
+		if (m_Data.Borders)
+		{
+			glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
+		}
+		else
+		{
+			glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
 		}
 
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
