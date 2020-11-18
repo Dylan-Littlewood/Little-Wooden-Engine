@@ -20,6 +20,7 @@
 //------Renderer-------------------------------
 #include "LittleWooden/Renderer/Renderer.hpp"
 #include "LittleWooden/Renderer/Renderer2D.hpp"
+#include "LittleWooden/Renderer/RendererUI.hpp"
 #include "LittleWooden/Renderer/RenderCommand.hpp"
 
 #include "LittleWooden/Renderer/Buffer.hpp"

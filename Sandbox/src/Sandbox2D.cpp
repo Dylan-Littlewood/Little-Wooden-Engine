@@ -31,11 +31,16 @@ void Sandbox2D::OnUpdate(LittleWooden::Timestep ts)
 	LittleWooden::RenderCommand::Clear();
 
 	LittleWooden::Renderer2D::BeginScene(m_CameraController.GetCamera());
-
+	
 	LittleWooden::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, m_SquareColor);
 	LittleWooden::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, m_SquareColor);
-
+	
 	LittleWooden::Renderer2D::EndScene();
+
+	//LittleWooden::RendererUI::BeginScene();
+	//LittleWooden::RendererUI::DrawElement({ 50.0f, 50.0f }, { 200.0f, 300.0f }, { 0.0f, 30.0f, 40.0f, 50.0f }, m_SquareColor);
+	//LittleWooden::RendererUI::EndScene();
+
 }
 
 void Sandbox2D::OnImGuiRender()
