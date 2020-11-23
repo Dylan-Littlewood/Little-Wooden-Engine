@@ -68,7 +68,7 @@ namespace LittleWooden {
 		s_Data->UIShader->SetFloat4("u_Color", color);
 		s_Data->UIShader->SetFloat2("u_Offset", position);
 		s_Data->UIShader->SetFloat4("u_BorderRadius", borderRadius);
-		//                                               TLr    TRr    BRr    BLr
+		// Border Radius Order - TLr, TRr, BRr, BLr
 
 		s_Data->UIVertexArray->Bind();
 		RenderCommand::DrawIndexed(s_Data->UIVertexArray);

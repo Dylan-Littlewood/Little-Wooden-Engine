@@ -17,10 +17,13 @@
 #include "LittleWooden/Renderer/OrthographicCameraController.hpp"
 //---------------------------------------------
 
+//------UI-------------------------------------
+#include "LittleWooden/UI/RendererUI.hpp"
+//---------------------------------------------
+
 //------Renderer-------------------------------
 #include "LittleWooden/Renderer/Renderer.hpp"
 #include "LittleWooden/Renderer/Renderer2D.hpp"
-#include "LittleWooden/Renderer/RendererUI.hpp"
 #include "LittleWooden/Renderer/RenderCommand.hpp"
 
 #include "LittleWooden/Renderer/Buffer.hpp"
