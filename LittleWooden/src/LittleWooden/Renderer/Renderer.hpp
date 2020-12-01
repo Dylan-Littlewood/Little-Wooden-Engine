@@ -1,9 +1,7 @@
 #pragma once
 
 #include "LittleWooden/Renderer/RenderCommand.hpp"
-
 #include "LittleWooden/Renderer/OrthographicCamera.hpp"
-
 #include "LittleWooden/Renderer/Shader.hpp"
 
 namespace LittleWooden {
@@ -12,6 +10,8 @@ namespace LittleWooden {
 	{
 	public:
 		static void Init();
+		static void Shutdown();
+
 		static void OnWindowResize(uint32_t width, uint32_t height);
 
 		static void BeginScene(OrthographicCamera& camera);

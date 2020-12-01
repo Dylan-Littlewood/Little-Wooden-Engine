@@ -1,16 +1,14 @@
 #pragma once
 
 #include "LittleWooden/Core/Base.hpp"
-
-#include "LittleWooden/ImGui/ImGuiLayer.hpp"
-
-
 #include "LittleWooden/Core/Window.hpp"
 #include "LittleWooden/Core/LayerStack.hpp"
+
 #include "LittleWooden/Events/Event.hpp"
 #include "LittleWooden/Events/ApplicationEvent.hpp"
 #include "LittleWooden/Events/UIEvent.hpp"
 
+#include "LittleWooden/ImGui/ImGuiLayer.hpp"
 
 
 namespace LittleWooden {
@@ -19,7 +17,7 @@ namespace LittleWooden {
 	{
 	public:
 		Application();
-		virtual ~Application() = default;
+		virtual ~Application();
 
 		void Run();
 

@@ -2,6 +2,8 @@
 
 // For use by Little Wooden Engine Applications
 
+#include "LittleWooden/Core/Base.hpp"
+
 #include "LittleWooden/Core/Application.hpp"
 #include "LittleWooden/Core/Layer.hpp"
 #include "LittleWooden/Core/Log.hpp"

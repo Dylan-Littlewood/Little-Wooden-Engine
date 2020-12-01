@@ -6,8 +6,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "Platform/OpenGL/OpenGLShader.hpp"
-
 #include "Sandbox2D.hpp"
 
 class ExampleLayer : public LittleWooden::Layer
@@ -26,8 +24,7 @@ public:
 			 0.0f,  0.2f, 0.0f,		0.8f, 0.8f, 0.2f, 1.0f
 		};
 
-		LittleWooden::Ref<LittleWooden::VertexBuffer> vertexBuffer;
-		vertexBuffer.reset(LittleWooden::VertexBuffer::Create(vertices, sizeof(vertices)));
+		LittleWooden::Ref<LittleWooden::VertexBuffer> vertexBuffer = LittleWooden::VertexBuffer::Create(vertices, sizeof(vertices));
 		LittleWooden::BufferLayout layout = {
 			{LittleWooden::ShaderDataType::Float3, "a_Position" },
 			{LittleWooden::ShaderDataType::Float4, "a_Color" }
@@ -37,8 +34,7 @@ public:
 		m_VertexArray->AddVertexBuffer(vertexBuffer);
 
 		unsigned int indices[3] = { 0, 1, 2 };
-		LittleWooden::Ref<LittleWooden::IndexBuffer> indexBuffer;
-		indexBuffer.reset(LittleWooden::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+		LittleWooden::Ref<LittleWooden::IndexBuffer> indexBuffer = LittleWooden::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
 		m_VertexArray->SetIndexBuffer(indexBuffer);
 
 		// Draw a triangle to the screen -----------------------------------------------------------------------
@@ -54,8 +50,7 @@ public:
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
 
-		LittleWooden::Ref<LittleWooden::VertexBuffer> quadVB;
-		quadVB.reset(LittleWooden::VertexBuffer::Create(quadVertices, sizeof(quadVertices)));
+		LittleWooden::Ref<LittleWooden::VertexBuffer> quadVB = LittleWooden::VertexBuffer::Create(quadVertices, sizeof(quadVertices));
 
 		quadVB->SetLayout({
 			{LittleWooden::ShaderDataType::Float3, "a_Position" },
@@ -65,8 +60,7 @@ public:
 		m_QuadVertexArray->AddVertexBuffer(quadVB);
 
 		unsigned int quadIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		LittleWooden::Ref<LittleWooden::IndexBuffer> quadIB;
-		quadIB.reset(LittleWooden::IndexBuffer::Create(quadIndices, sizeof(quadIndices) / sizeof(uint32_t)));
+		LittleWooden::Ref<LittleWooden::IndexBuffer> quadIB = LittleWooden::IndexBuffer::Create(quadIndices, sizeof(quadIndices) / sizeof(uint32_t));
 		m_QuadVertexArray->SetIndexBuffer(quadIB);
 		
 		// Draw a Quad to the screen ---------------------------------------------------------------------------
@@ -84,15 +78,13 @@ public:
 			-0.35f,-0.2f, 0.0f,
 			-0.35f, 0.2f, 0.0f
 		};
-		LittleWooden::Ref<LittleWooden::VertexBuffer> hexVB;
-		hexVB.reset(LittleWooden::VertexBuffer::Create(hexVertices, sizeof(hexVertices)));
+		LittleWooden::Ref<LittleWooden::VertexBuffer> hexVB = LittleWooden::VertexBuffer::Create(hexVertices, sizeof(hexVertices));
 
 		hexVB->SetLayout({ {LittleWooden::ShaderDataType::Float3, "a_Position" } });
 		m_HexVertexArray->AddVertexBuffer(hexVB);
 
 		unsigned int hexIndices[12] = { 0, 1, 5, 1, 2, 4, 2, 3, 4, 4, 5, 1 };
-		LittleWooden::Ref<LittleWooden::IndexBuffer> hexIB;
-		hexIB.reset(LittleWooden::IndexBuffer::Create(hexIndices, sizeof(hexIndices) / sizeof(uint32_t)));
+		LittleWooden::Ref<LittleWooden::IndexBuffer> hexIB = LittleWooden::IndexBuffer::Create(hexIndices, sizeof(hexIndices) / sizeof(uint32_t));
 		m_HexVertexArray->SetIndexBuffer(hexIB);
 		
 		// Draw a Hex to the screen ----------------------------------------------------------------------------
@@ -102,17 +94,17 @@ public:
 
 
 		auto positionColorShader = m_ShaderLibrary.Load("assets/shaders/PositionColor.glsl");
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(positionColorShader)->Bind();
+		positionColorShader->Bind();
 		auto flatColorShader = m_ShaderLibrary.Load("assets/shaders/FlatColor.glsl");
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(flatColorShader)->Bind();
+		flatColorShader->Bind();
 
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
 		m_CheckerboardTexture = LittleWooden::Texture2D::Create("assets/images/Checkerboard.png");
 		m_LittleWoodenLogoTexture = LittleWooden::Texture2D::Create("assets/images/Logo_Good.png");
 
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->Bind();
-		std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(textureShader)->UploadUniformInt("u_Texture", 0);
+		textureShader->Bind();
+		textureShader->SetInt("u_Texture", 0);
 
 
 
@@ -157,9 +149,9 @@ public:
 				glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
 
 				if(x % 2 == 0)
-					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", m_HexColor);
+					flatColorShader->SetFloat3("u_Color", m_HexColor);
 				else
-					std::dynamic_pointer_cast<LittleWooden::OpenGLShader>(flatColorShader)->UploadUniformFloat3("u_Color", m_HexAltColor);
+					flatColorShader->SetFloat3("u_Color", m_HexAltColor);
 
 				LittleWooden::Renderer::Submit(flatColorShader, m_HexVertexArray, transform);
 			}
