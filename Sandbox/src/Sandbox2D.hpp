@@ -1,6 +1,6 @@
 #pragma once
 
-#include "LittleWooden.hpp"
+#include <LittleWooden.hpp>
 
 class Sandbox2D : public LittleWooden::Layer
 {

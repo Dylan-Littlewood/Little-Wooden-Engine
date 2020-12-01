@@ -66,7 +66,7 @@ namespace LittleWooden {
 		m_Window = glfwCreateWindow((int)m_Data.Width, (int)m_Data.Height, m_Data.Title.c_str(), nullptr, nullptr);
 		++s_GLFWWindowCount;
 
-		m_Context = CreateScope<OpenGLContext>(m_Window);
+		m_Context = GraphicsContext::Create(m_Window);
 		m_Context->Init();
 		
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -175,7 +175,9 @@ namespace LittleWooden {
 	void WindowsWindow::Shutdown()
 	{
 		glfwDestroyWindow(m_Window);
-		if(--s_GLFWWindowCount == 0)
+		--s_GLFWWindowCount;
+
+		if(s_GLFWWindowCount == 0)
 		{
 			LW_CORE_INFO("Terminating GLFW");
 			glfwTerminate();

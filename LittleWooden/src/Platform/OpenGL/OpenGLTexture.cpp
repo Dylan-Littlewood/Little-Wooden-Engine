@@ -1,7 +1,7 @@
 #include "lwpch.hpp"
 #include "OpenGLTexture.hpp"
 
-#include "stb_image.h"
+#include <stb_image.h>
 
 namespace LittleWooden {
 

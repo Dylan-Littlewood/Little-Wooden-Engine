@@ -1,5 +1,7 @@
 #pragma once
 
+#include "LittleWooden/Core/Base.hpp"
+
 #ifdef LW_PLATFORM_WINDOWS
 	
 	//LW Application EntryPoint Setup
