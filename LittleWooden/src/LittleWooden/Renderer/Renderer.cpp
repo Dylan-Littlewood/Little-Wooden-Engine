@@ -2,7 +2,7 @@
 #include "Renderer.hpp"
 
 #include "LittleWooden/Renderer/Renderer2D.hpp"
-#include "LittleWooden/Renderer/RendererUI.hpp"
+#include "LittleWooden/UI/RendererUI.hpp"
 
 namespace LittleWooden {
 

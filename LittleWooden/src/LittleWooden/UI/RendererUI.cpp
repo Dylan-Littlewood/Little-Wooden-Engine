@@ -30,16 +30,14 @@ namespace LittleWooden {
 			-1.0f,  1.0f, 0.0f
 		};
 
-		Ref<VertexBuffer> uiVB;
-		uiVB.reset(VertexBuffer::Create(uiVertices, sizeof(uiVertices)));
+		Ref<VertexBuffer> uiVB = VertexBuffer::Create(uiVertices, sizeof(uiVertices));
 		uiVB->SetLayout({
 			{ ShaderDataType::Float3, "a_Position" }
 			});
 		s_Data->UIVertexArray->AddVertexBuffer(uiVB);
 
 		uint32_t uiIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		Ref<IndexBuffer> uiIB;
-		uiIB.reset(IndexBuffer::Create(uiIndices, sizeof(uiIndices) / sizeof(uint32_t)));
+		Ref<IndexBuffer> uiIB = IndexBuffer::Create(uiIndices, sizeof(uiIndices) / sizeof(uint32_t));
 		s_Data->UIVertexArray->SetIndexBuffer(uiIB);
 
 		s_Data->UIShader = Shader::Create("assets/shaders/UIShader.glsl");
